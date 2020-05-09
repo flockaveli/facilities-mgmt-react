@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://flocka:ninja1@cluster0-3kj60.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "fm_jwtSecret"
+}

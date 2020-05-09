@@ -1,0 +1,4 @@
+export const GET_REQUESTS = 'GET_REQUESTS';
+export const GET_REQUEST = 'GET_REQUEST';
+export const ADD_REQUEST = 'ADD_REQUEST';
+export const REQUESTS_LOADING = 'REQUESTS_LOADING';
