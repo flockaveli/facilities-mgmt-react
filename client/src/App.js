@@ -1,28 +1,24 @@
-import React, { Component } from 'react';
-import  NavBar  from './components/AppNavBar';
-import RequestList  from './components/RequestList';
-import CreateRequest from './components/CreateRequest';
-import { Container } from 'reactstrap';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { ConnectedRouter } from 'connected-react-router';
+import routes from './routes'
+import AppNavBar from './components/AppNavBar';
 
-import { Provider } from 'react-redux';
-import store from './store';
 
-import 'bootstrap/dist/css/bootstrap.min.css'
+const App = ({history}) => {
+  
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-      <div className="App">
-        <NavBar />
-        <Container>
-        <CreateRequest/>
-        <RequestList />
-        </Container>
-      </div>
-      </Provider>
-  )
+return (
+  
+  <ConnectedRouter history={history}>
+    <AppNavBar />
+    { routes }
+  </ConnectedRouter>
+)
 }
+
+App.propTypes = {
+  history: PropTypes.object
 }
 
 export default App

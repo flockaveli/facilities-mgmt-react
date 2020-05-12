@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {
     Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
     Form,
     FormGroup,
     Label,
@@ -14,7 +11,6 @@ import { addRequest } from '../actions/requestActions';
 
 class CreateRequest extends Component {
     state = {
-        modal: false,
         name: ''
     }
 
@@ -35,32 +31,29 @@ class CreateRequest extends Component {
         }
 
         this.props.addRequest(newRequest);
-        this.toggle();
     }
 
     render() {
         return(
-            <div>
-                <Button color="dark"
-                style={{marginBottom: '2rem'}}
-                onClick={this.toggle}
-                >Create A Request</Button>
 
-                <Modal
-                isOpen={this.state.modal}
-                toggle={this.toggle}
-                >
-
-                    <ModalHeader toggle={this.toggle}>Create A Request</ModalHeader>
-                    <ModalBody>
+                    <div>
                         <Form onSubmit={this.onSubmit}>
                             <FormGroup>
-                                <Label for="request">Title</Label>
+                                <Label for="name">Title</Label>
+                                
                                 <Input 
                                 type="text"
                                 name="name"
-                                id="request"
-                                placeholder="Request Title"
+                                id="name"
+                                placeholder="Up to 70 chars"
+                                onChange={this.onChange}
+                                />
+                                <Label for="desc">Description</Label>
+                                <Input 
+                                type="text"
+                                name="description"
+                                id="desc"
+                                placeholder="Please describe your request. Up to 500 chars"
                                 onChange={this.onChange}
                                 />
                                 <Button
@@ -69,9 +62,8 @@ class CreateRequest extends Component {
                                 block>Submit Request</Button>
                             </FormGroup>
                         </Form>
-                    </ModalBody>
-                </Modal>
-            </div>
+                    </div>
+            
         )
     }
 }

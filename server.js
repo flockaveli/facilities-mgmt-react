@@ -1,6 +1,5 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const path = require('path');
 const config = require('config')
 
 const db = config.get('mongoURI')
@@ -26,5 +25,6 @@ app.use(express.json());
 
 app.use('/api/requests', require('./routes/api/requests'))
 app.use('/api/users', require('./routes/api/users'))
+app.use('/api/auth', require('./routes/api/auth'))
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))

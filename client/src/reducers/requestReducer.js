@@ -1,8 +1,9 @@
-import {v1 as uuid} from 'uuid';
 import { GET_REQUESTS, ADD_REQUEST, GET_REQUEST, REQUESTS_LOADING } from '../actions/types'
+
 
 const initialState = {
     requests: [],
+    requestDetail: null,
     loading: false
 };
 
@@ -14,6 +15,11 @@ export default function(state = initialState, action) {
                 requests: action.payload,
                 loading: false
             }
+        case GET_REQUEST:
+            return {
+                ...state,
+                requestDetail: action.payload
+            }
         case ADD_REQUEST:
             return {
                 ...state,
@@ -24,8 +30,8 @@ export default function(state = initialState, action) {
                 ...state,
                 loading: true
             }
-            default:
-                return state;
+        default:
+            return state;
     }
 }
 

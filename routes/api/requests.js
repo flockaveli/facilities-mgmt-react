@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../../middleware/auth')
+
 
 const Request = require('../../models/request-model');
 
@@ -16,8 +18,8 @@ router.get('/', (req,res) => {
 //@route GET api/requests/:id
 //@desc GET a single request details
 //@access Admin
-router.get('/:id', (req,res) => {
-    Request.findById(req.params.id)
+router.get('/:_id', (req,res) => {
+    Request.findById(req.params._id)
     .then(request => res.json(request))
 });
 
