@@ -95,7 +95,7 @@ class RegisterUser extends Component {
                                 />
                                 <Label for="email">Email</Label>
                                 <Input 
-                                type="email"
+                                type="text"
                                 name="email"
                                 id="email"
                                 placeholder="Your Unitec email address"
