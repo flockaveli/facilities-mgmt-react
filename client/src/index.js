@@ -1,20 +1,17 @@
 import React from 'react';
-
-import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
-import configureStore, { history } from "./store";
+import { BrowserRouter as Router } from 'react-router-dom'
 
+import history from './services/history';
+import { FmProvider } from './services/fm-context'
 import App from './App';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-const store = configureStore();
-
 
 ReactDOM.render(
-<Provider store={store}>
-        <App history={history}/>
-</Provider>,
-document.getElementById('root')
-        ); 
-
+        <Router history={ history }>
+                <FmProvider>
+                        <App />
+                </FmProvider>
+        </Router>,
+        document.getElementById('root')
+);
 

@@ -12,17 +12,20 @@ const RequestSchema = new Schema(
         description: { 
             type: String,
             maxlength: 400,
-            //required: true 
+            required: true 
             },
         requester: {
             type: String,
             required: true,
             default: 'Requester'
             },
+        worker: {
+            type: String
+            },
         category: { 
             type: String,
             //required: true,
-            enum: ['Security', 'Cleaning and Waste', 'Signage', 'Building Maintenance', 'Exterior'],
+            enum: ['Security', 'Cleaning & Waste', 'Signage', 'Building Maintenance', 'Exterior'],
             },
         priority: {
             type: String,

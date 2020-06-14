@@ -7,20 +7,21 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
-    "bootstrap": "^4.4.1",
-    "connected-react-router": "^6.8.0",
+    "bootstrap": "^4.5.0",
+    "formik": "^2.1.4",
     "history": "^4.10.1",
+    "jest-styled-components": "^7.0.2",
+    "jquery": "^3.5.1",
+    "moment": "^2.26.0",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
-    "react-redux": "^7.2.0",
-    "react-router": "^5.1.2",
-    "react-router-dom": "^5.1.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^2.1.8",
-    "reactstrap": "^8.4.1",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
     "storybook": "^5.3.18",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.1",
+    "styled-theming": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,15 +47,19 @@
       "last 1 safari version"
     ]
   },
+  "plugins": [
+    "babel-plugin-styled-components"
+  ],
   "devDependencies": {
-    "@babel/core": "^7.9.6",
+    "@babel/core": "^7.10.2",
     "@storybook/addon-actions": "^5.3.18",
     "@storybook/addon-links": "^5.3.18",
     "@storybook/addons": "^5.3.18",
     "@storybook/react": "^5.3.18",
+    "babel-plugin-styled-components": "^1.10.7",
     "cross-env": "^7.0.2"
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "description": "Unitec Facilities Management",
   "main": "index.js",
   "author": "Felix Toepfer & Xiaoyu Pan",
   "license": "ISC"
