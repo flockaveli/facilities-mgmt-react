@@ -4,14 +4,13 @@ const bcrypt = require('bcryptjs');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
-
 const User = require('../../models/user-model');
 
 
 //@route post api/auth
 //@desc authenticate user
 //@access Public
-router.post('/', (req,res) => {
+router.post('/', (req, res) => {
     const { email, password } = req.body;
 
     if(!email || !password) {
@@ -29,16 +28,17 @@ router.post('/', (req,res) => {
             if(!isMatch) return res.status(400).json({ msg: 'Incorrect password'});
 
             jwt.sign(
-                { id: user.id },
+                { _id: user._id },
                 config.get('jwtSecret'),
                 (err, token) => {
                     if(err) throw err;
                     res.json({
                         token,
                         user: {
-                            id: user.id,
+                            _id: user._id,
                             name: user.name,
-                            email: user.email
+                            email: user.email,
+                            type: user.type
                         }
                     })
                 }
@@ -53,7 +53,7 @@ router.post('/', (req,res) => {
 //@desc get user data
 //@access Private
 router.get('/user', auth, (req, res) => {
-    User.findById(req.user.id)
+    User.findById(req.user._id)
     .select('-password')
     .then(user => res.json(user))
 })
