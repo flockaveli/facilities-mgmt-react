@@ -42,6 +42,10 @@ border-radius: 50%;
 const PriorityTag = styled.div`
 background-color: darkred;
 padding: 1em;
+color: white;
+border-radius: 30px;
+margin: 2.5em 0em 0em 0em;
+
 `
 const RequestList = ({ requests, isFetching }) => {
 
@@ -107,7 +111,7 @@ const RequestList = ({ requests, isFetching }) => {
                         </ListRequest>
                     </Col>
                     <Col xs={ 2 }>
-                        { request.priority === "High" ? <PriorityTag /> : null }
+                        { request.priority === "High" ? <PriorityTag>High</PriorityTag> : null }
                     </Col>
                 </Row>
 

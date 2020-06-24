@@ -14,6 +14,7 @@ const containerStyle = {
 };
 
 export const LocationView = (props) => {
+    
     const place = { lat: props.lat, lng: props.lng }
 
     const options = {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components/macro';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -49,6 +50,7 @@ const CreateRequest = () => {
 
 	const context = useFmState();
 	const dispatch = useFmDispatch();
+	const history = useHistory();
 
 	const { user } = context;
 
@@ -115,6 +117,7 @@ const CreateRequest = () => {
 											dispatch({
 												type: 'CREATED_REQUEST'
 											})
+											history.push('/requester')
 										} else {
 											console.log('Error')
 										}

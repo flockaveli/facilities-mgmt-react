@@ -32,10 +32,13 @@ let initialState = {
       lat: null,
       lng: null
     },
-    assignment: [],
+    assignment: {
+      workers: [],
+      assignmentMessage: "",
+    },
     messages: [{
       sender: "",
-      assignmentMessage: "",
+      message: "",
       photos: []
     }],
     workerLog: [{
@@ -80,6 +83,10 @@ export const FmReducer = (state, action) => {
             building: "",
             lat: null,
             lng: null
+          },
+          assignment: {
+            workers: [],
+            assignmentMessage: ''
           },
           messages: [{
             sender: "",

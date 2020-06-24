@@ -22,7 +22,7 @@ const RequestSchema = new Schema(
         assignment: {
             type: new Schema({
                 workers: [{ type: String }],
-                assignmentMessage: { type: String }
+                assignmentMessage: { type: String, default: '' }
             }, { timestamps: true })
         },
         category: {

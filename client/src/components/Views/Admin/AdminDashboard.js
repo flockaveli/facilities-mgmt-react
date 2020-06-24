@@ -63,6 +63,13 @@ margin: 1em;
 background: transparent;
 padding: 0em 1em 0em 1em;
 
+box-shadow: 0px 0px 0px 0px #D1D9E6, 0px 0px 0px 0px #FFFFFF;
+
+:hover{
+    color: #666;
+    background-color: #ecf0f3;
+	border-color: #ecf0f3;
+};
 `
 
 const CategoryMark = styled.div`
@@ -76,23 +83,11 @@ background-color: darkred;
 padding: 1em;
 `
 
-
-// const REQUEST_FILTERS = {
-// 	// [SHOW_ALL]: () => true,
-// 	// [SHOW_ACTIVE]: request => request.category
-// 	// [SHOW_COMPLETED]: todo => todo.completed
-// }
-
-//   const { filter } = this.state
-
-//   const filteredRequests = requests.filter(REQUEST_FILTERS[filter])
-
-
 //functional component declaration
 const AdminDashboard = () => {
 	const state = useFmState();
 	const dispatch = useFmDispatch();
-	
+
 	const { categories, requests, isFetching } = state
 
 	//filter functions
@@ -185,7 +180,7 @@ const AdminDashboard = () => {
 											name="priorityFilterSelect"
 											value={ filterPriority }
 											onChange={ priorityInput }	>
-											<option selected key={ 0 } value={ '' }>-</option>
+											<option defaultValue key={ 0 } value={ '' }>-</option>
 											{ prioritydropdown.map((category) => <option key={ category.value } value={ category.value }>{ category.display }</option>) }
 										</Form.Control>
 									</Form.Group>

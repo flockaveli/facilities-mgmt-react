@@ -12,6 +12,7 @@ import WorkerLog from '../Shared/WorkerLog';
 
 import LocationView from '../Shared/LocationView';
 import UploadedImage from '../Shared/UploadedImage'
+import e from 'cors';
 
 
 const AdminRequestDetail = () => {
@@ -55,7 +56,7 @@ const AdminRequestDetail = () => {
 
   return (
     <Container>
-      <Row><Button onClick={ back() } >Back </Button>
+      <Row><Button onClick={ back } >Back </Button>
       </Row>
       <Row>
         <Col sm={ 7 }>
@@ -80,6 +81,7 @@ const AdminRequestDetail = () => {
             <option value={ "High" }>High</option>
           </Form.Control></Col>
           </Row>
+          {/* <Row>{ SelectedRequest.assignment.workers && SelectedRequest.assignment.workers.map((worker) => </Row> */ }
         </Col>
       </Row>
       <Row>
@@ -97,18 +99,18 @@ const AdminRequestDetail = () => {
       { SelectedRequest.messages && SelectedRequest.messages.map((message) => <Row><Col> <Message message={ message } key={ message } /></Col></Row>) }
 
       <Row>
-        { SelectedRequest.assignment.assignmentMessage && <Row><AssignmentDetails message={ SelectedRequest.assignment } /></Row> }
+        { SelectedRequest.assignment.assignmentMessage ? <Row> <AssignmentDetails message={ SelectedRequest.assignment } /></Row> : null }
       </Row>
       <Row>
         { SelectedRequest.workerLog.message && <h4>Workers Log</h4> && <Row><WorkerLog message={ SelectedRequest.workerLog } /></Row> }
       </Row>
 
       <Row><Col>
-        <Button onClick={ respond() }> Respond To Requester </Button>
+        <Button onClick={ respond }> Respond To Requester </Button>
       </Col>
         <Col>
-          <Button onClick={ assign() } > Assign </Button></Col>
-        <Col><Button onClick={ closeRequest() }> Decline </Button></Col>
+          <Button onClick={ assign } > Assign </Button></Col>
+        <Col><Button onClick={ closeRequest }> Decline </Button></Col>
       </Row>
     </Container >
   );
