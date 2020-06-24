@@ -54,13 +54,13 @@ box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
 
 const validationSchema = Yup.object().shape({
     password: Yup.string()
-        .min(5, "*Password must be at least 5 characters")
-        .max(100, "*Password can't be longer than 20 characters")
-        .required("*Please enter password"),
+        .min(5, "Password must be at least 5 characters")
+        .max(25, "Password can't be longer than 20 characters")
+        .required("Please enter password"),
     email: Yup.string()
-        .email("*Please enter a valid email address")
-        .max(100, "*Email must be less than 100 characters")
-        .required("*Email is required")
+        .email("Please enter a valid email address")
+        .max(30, "Email must be less than 30 characters")
+        .required("Email is required")
 });
 
 const Login = () => {
@@ -84,31 +84,33 @@ const Login = () => {
             <Formik
                 initialValues={ { email: "", password: "" } }
                 validationSchema={ validationSchema }
-                onSubmit={ (values, { setSubmitting }) => {
-                    setSubmitting(true); try {
-                        const { email, password } = values
-                        AuthDataService.postLogin({ email, password })
-                            .then(result => {
-                                if (result.status === 200) {
-                                    dispatch({
-                                        type: 'LOGIN',
-                                        payload: result.data
-                                    })
-                                    const { user, token } = result.data
-                                    localStorage.setItem("user", JSON.stringify(user));
-                                    localStorage.setItem("token", token);
-                                } else {
-                                    console.log('Error')
+                onSubmit={
+                    (values, { setSubmitting }) => {
+                        setSubmitting(true);
+                        try {
+                            const { email, password } = values
+                            AuthDataService.postLogin({ email, password })
+                                .then(result => {
+                                    if (result.status === 200) {
+                                        dispatch({
+                                            type: 'LOGIN',
+                                            payload: result.data
+                                        })
+                                        const { user, token } = result.data
+                                        localStorage.setItem("user", JSON.stringify(user));
+                                        localStorage.setItem("token", token);
+                                    } else {
+                                        console.log('Error')
+                                    }
                                 }
-                            }
-                            )
-                            .catch(e => {
-                                console.log(e)
-                            })
-                    } catch (err) {
-                        console.error('Auth error', err)
-                    }
-                } }>
+                                )
+                                .catch(e => {
+                                    console.log(e)
+                                })
+                        } catch (err) {
+                            console.error('Auth error', err)
+                        }
+                    } }>
                 { ({ values,
                     errors,
                     touched,
@@ -116,7 +118,7 @@ const Login = () => {
                     handleBlur,
                     handleSubmit,
                     isSubmitting }) => (
-                        <Form onSubmit={ handleSubmit } className="mx-auto">
+                        <Form onSubmit={ handleSubmit } >
                             <Form.Group controlId="loginEmail">
                                 <Form.Label>Email:</Form.Label>
                                 <Form.Control

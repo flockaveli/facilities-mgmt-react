@@ -1,39 +1,78 @@
-import http from "../http-common";
+import http from "./http-common";
+import form from "./http-formdata";
+
+//ADMIN FUNCTIONS
 
 const getAll = () => {
-  return http.get("/requests");
-};
-
-const get = _id => {
-  return http.get(`/requests/${_id}`);
+  return http.get("/requests/admin");
 };
 
 const getCategoryCount = () => {
   return http.get(`/requests/categories`);
 };
 
+const getDetail = _id => {
+  return http.get(`/requests/detail/${_id}`);
+};
+
 const getWorkers = () => {
   return http.get(`/user/workers`);
 };
 
+const assignRequest = (_id, data) => {
+  return http.put(`/requests/assign/${_id}`, data);
+};
+const changePriority = (_id, data) => {
+  return http.put(`/requests/priority/${_id}`, data);
+};
+
+const adminRespond = (_id, data) => {
+  return http.put(`/requests/respond/${_id}`, data);
+};
+
+
+// ** WORKER FUNCTIONS
+
+const getWorkersRequests = _id => {
+  return http.get(`/requests/workersrequests/${_id}`);
+};
+
+const logJob = (_id, data) => {
+  return http.put(`/requests/respond/${_id}`, data);
+};
+
+
+// ** REQUESTER FUNCTIONS
+
+const getMyRequests = _id => {
+  return http.get(`/requests/myrequests/${_id}`);
+};
+
 const createRequest = data => {
-  return http.post("/requests", data);
+  return form.post(`/requests/createrequest`, data);
 };
 
-const update = (_id, data) => {
-  return http.put(`/requests/${_id}`, data);
+const addMessage = (_id, data) => {
+  return form.put(`/requests/addmessage/${_id}`, data);
 };
 
-const findById = _id => {
-  return http.get(`/requests?_id=${_id}`);
-};
 
 export default {
   getAll,
-  get,
-  createRequest,
+  getDetail,
+  adminRespond,
+  assignRequest,
   getCategoryCount,
-  update,
-  findById,
-  getWorkers
+  getWorkers,
+  changePriority,
+
+  getWorkersRequests,
+  logJob,
+
+  createRequest,
+  addMessage,
+  getMyRequests
+
+
+
 };

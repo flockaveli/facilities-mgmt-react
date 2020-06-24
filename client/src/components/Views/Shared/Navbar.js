@@ -10,11 +10,12 @@ import { useFmState, useFmDispatch, hasType } from '../../../services/fm-context
 
 const Nav = styled(Navbar)`
 background-color: #ECF0F3;
-padding: 1em;
+padding: .5em;
 display: flex;
 flex-direction: horizontal;
 justify-content: space-between;
 box-shadow: 18px 18px 30px 0px #D1D9E6;
+margin: 0 0 2em 0;
 `;
 
 const NavLink = styled.div`
@@ -23,12 +24,11 @@ padding: 1em;
 `;
 
 const UfmLogo = styled.img`
-width: 9vw;
-padding: 0em 0em 0em 1em;
+width: 5vw;
+padding: 0em 2em 0em 1em;
 `;
 
 const FmNav = () => {
-
   const context = useFmState();
   const dispatch = useFmDispatch();
   const { user } = context;
@@ -53,9 +53,9 @@ const FmNav = () => {
       <Link to={ "/admin" } >
         Dashboard
               </Link>
-      <Link to={ "/archive" } >
+      {/* <Link to={ "/archive" } >
         Archive
-              </Link>
+              </Link> */}
       <Link to={ "/users" } >
         Users
               </Link>
@@ -75,14 +75,16 @@ const FmNav = () => {
     </>
     }
 
-    <NavLink> <Link to={ "/login" }>
+    { !user.name && <> <NavLink> <Link to={ "/login" }>
       Login </Link>
     </NavLink>
 
-    <NavLink><Link to={ "/register" } >
-      Register
+      <NavLink><Link to={ "/register" } >
+        Register
               </Link>
-    </NavLink>
+      </NavLink>
+    </> }
+
 
 
 
