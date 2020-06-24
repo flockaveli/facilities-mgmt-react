@@ -153,15 +153,7 @@ const AdminArchive = () => {
 	//returning JSX to render
 	return (
 		<AdminDashboardWrapper>
-			<CategoryButtonWrapper>
-				<Row>
-					{ categories && categories.map((category, _id) => (
-						<Col>
-							<CategoryButton key={ _id } onClick={ () => setFilterCategory(category._id.category) }> <Row><CategoryMark category={ category._id.category } /></Row><Row> { category._id.category } </Row><Row>{ category.count } Active Requests</Row></CategoryButton>
-						</Col>
-					)) }
-				</Row>
-			</CategoryButtonWrapper>
+
 			<FilterBar>
 				<Row>
 					<Col>
@@ -176,28 +168,6 @@ const AdminArchive = () => {
 											placeholder='Filter here…'
 											onChange={ searchInput }
 										/>
-									</Form.Group>
-								</Col><Col>
-									<Form.Group controlId="createRequestFormCategory">
-										<Form.Label>Priority</Form.Label>
-										<Form.Control as="select"
-											name="priorityFilterSelect"
-											value={ filterPriority }
-											onChange={ priorityInput }	>
-											<option defaultValue key={ 0 } value={ '' }>-</option>
-											{ prioritydropdown.map((category) => <option key={ category.value } value={ category.value }>{ category.display }</option>) }
-										</Form.Control>
-									</Form.Group>
-								</Col><Col>
-									<Form.Group controlId="createRequestFormCategory">
-										<Form.Label >Status</Form.Label>
-										<Form.Control as="select"
-											name="statusFilterInput"
-											value={ filterStatus }
-											onChange={ statusInput } >
-											<option selected key={ 0 } value={ '' }>-</option>
-											{ statusdropdown.map((category) => <option key={ category.value } value={ category.value }>{ category.display }</option>) }
-										</Form.Control>
 									</Form.Group>
 								</Col>
 								<Col>

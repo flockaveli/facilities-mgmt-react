@@ -56,7 +56,7 @@ const CreateRequest = () => {
 	const { user } = context;
 
 	const categorydropdown = [{ "value": "Signage", "display": "Signage" }, { "value": "Security", "display": "Security" }, { "value": "Cleaning & Waste", "display": "Cleaning & Waste" }, { "value": "Building Maintenance", "display": "Building Maintenance" }, { "value": "Exterior", "display": "Exterior" },]
-	const locationdropdown = [{ "value": "Signage", "display": "Signage" }, { "value": "Security", "display": "Security" }, { "value": "170", "display": "170" }, { "value": "183", "display": "183" }, { "value": "Exterior", "display": "Exterior" },]
+	const locationdropdown = [{ "value": "Te Puna", "display": "Te Puna" }, { "value": "180", "display": "180" }, { "value": "170", "display": "170" }, { "value": "183", "display": "183" }, { "value": "Exterior", "display": "Exterior" },]
 
 
 	const validationSchema = Yup.object().shape({
@@ -121,6 +121,7 @@ const CreateRequest = () => {
 											history.push('/requester')
 										} else {
 											console.log('Error')
+											history.push('/requester')
 										}
 									})
 							} catch (err) {
