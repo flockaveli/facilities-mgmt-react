@@ -41,12 +41,19 @@ border-radius: 30px !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
 `
 const AdminDashboardDisplay = styled.div`
-align-items: center;
-margin: 1em 0em ;
+
+margin: auto;
 `
 const FilterBar = styled.div`
-align-items: center;
-margin: 2em 1em 2em;
+
+margin: 3em 0em 4em 7em;
+
+.Input {
+	margin: auto;
+}
+.Button {
+	margin: 3em 3em 0em 0em
+}
 `
 const CategoryButtonWrapper = styled(Container)`
 padding: 0.2em;
@@ -62,6 +69,7 @@ font-size: 1em;
 margin: 1em;
 background: transparent;
 padding: 0em 1em 0em 1em;
+text-align: center;
 
 box-shadow: 0px 0px 0px 0px #D1D9E6, 0px 0px 0px 0px #FFFFFF;
 
@@ -74,15 +82,11 @@ box-shadow: 0px 0px 0px 0px #D1D9E6, 0px 0px 0px 0px #FFFFFF;
 
 const CategoryMark = styled.div`
 background-color: ${props => getColor(props)};
+margin: auto;
 height: 1em;
 width: 1em;
 border-radius: 50%;
 `
-const PriorityTag = styled.div`
-background-color: darkred;
-padding: 1em;
-`
-
 //functional component declaration
 const AdminDashboard = () => {
 	const state = useFmState();

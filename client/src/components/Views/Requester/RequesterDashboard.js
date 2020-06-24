@@ -11,17 +11,24 @@ import { useFmState, useFmDispatch } from '../../../services/fm-context'
 const DashboardWrapper = styled(Container)`
 align-items: center;
 padding: 1em 1em;
+text-align: center;
+margin: auto;
 `
 const ListRequest = styled.div`
 background: ${props => props.theme.colors.background};
 padding: 1em;
-margin: 2em 1em 1em 0em;
+margin: 3em 3em 3em 3em;
 border: 0;
 border-radius: 30px !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
+text-align: center;
+margin: auto;
+
+
+
 `
 const DashboardDisplay = styled.div`
-align-items: center;
+margin: auto;
 `
 
 const RequesterDashboard = () => {
@@ -51,7 +58,7 @@ const RequesterDashboard = () => {
 			})
 	}
 
-	const itemsPerPage = 2
+	const itemsPerPage = 4
 	const [currentPage, setCurrentPage] = useState(1);
 
 	const maxPage = Math.ceil(requests.length / itemsPerPage);

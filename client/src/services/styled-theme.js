@@ -14,16 +14,30 @@ html {
 }
 h1 {
   font-size: 3rem;
+  padding: 0.5em;
 }
 h2 {
   font-size: 2.5rem;
+  padding: 2em;
 }
 h3 {
   font-size: 2rem;
+  padding: 2em;
+}
+h3 {
+  font-size: 4rem;
+  padding: 2em;
 }
   body {
     font-family: ${props => props.theme.fontFamily};
   }
+Button {
+  padding: 2em;
+}
+Row {
+  padding: 1.5em;
+}
+
 `
 
 const theme = {

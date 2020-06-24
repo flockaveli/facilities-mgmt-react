@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from 'styled-components/macro';
 import { Formik, ErrorMessage } from 'formik';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Container, Row, Button, Col, Form, DropdownButton, Dropdown } from 'react-bootstrap';
 import StyledDropzone from '../Shared/StyledDropzone.js';
 
-import requestDataService from "../../../services/RequestService";
+import RequestDataService from "../../../services/RequestService";
 import { useFmState, useFmDispatch } from '../../../services/fm-context'
 
 const CONTAINER = styled.div`
@@ -45,10 +45,27 @@ const AddMessage = () => {
 		history.goBack()
 	}
 
-	const { user, selectedRequest } = context;
+	const { _id } = useParams()
+
+	useEffect(() => {
+		getRequestDetail(_id)
+	}, [])
+
+	const getRequestDetail = _id => {
+		RequestDataService.getDetail(_id)
+			.then(response => {
+				dispatch({ type: 'SELECTED_REQUEST', payload: response.data });
+				console.log(response.data);
+			})
+			.catch(e => {
+				console.log(e);
+			})
+	}
+
+	const { user, SelectedRequest } = context;
 
 	const validationSchema = Yup.object().shape({
-		description: Yup.string()
+		message: Yup.string()
 			.min(20, "Message must be at least 20 characters")
 			.max(100, "Message must be less than 300 characters")
 			.required("Message text is required"),
@@ -64,16 +81,17 @@ const AddMessage = () => {
 				value => value && SUPPORTED_FORMATS.includes(value.type)
 			)
 		)
+			.nullable()
 	});
 
 	return (
 		<CONTAINER>
 			<Row>
-				<Button onClick={ back } />
+				<Button onClick={ back }>Back</Button>
 			</Row>
 			<Formik
 				initialValues={ {
-					description: "",
+					message: "",
 					sender: {},
 					photos: {}
 				} }
@@ -83,17 +101,15 @@ const AddMessage = () => {
 						setSubmitting(true);
 						try {
 							const messageData = new FormData()
-							messageData.append('message', values.description)
-							messageData.append('sender', user._id)
+							messageData.append('message', values.message)
+							messageData.append('sender', user.name)
 							for (var x = 0; x < values.photos.length; x++) {
 								messageData.append('photos', values.photos[x])
 							}
-							requestDataService.AddMessage(selectedRequest._id, messageData)
+							RequestDataService.addMessage(SelectedRequest._id, messageData)
 								.then(result => {
 									if (result.status === 200) {
-										dispatch({
-											type: 'MESSAGE_ADDED'
-										})
+										history.goBack()
 									} else {
 										console.log('Error')
 									}

@@ -19,6 +19,7 @@ background: ${props => props.theme.colors.background};
   margin: 5em auto;
   padding: 2em;
   
+  margin: auto;
 border-radius: 30px !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
 

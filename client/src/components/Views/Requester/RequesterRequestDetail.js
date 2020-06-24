@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { Link, useParams, useHistory } from "react-router-dom";
 import { Row, Col, Button, Container } from "react-bootstrap";
-import style from "styled-components/macro";
+import styled from "styled-components/macro";
 import RequestDataService from "../../../services/RequestService"
 import { useFmState, useFmDispatch } from '../../../services/fm-context'
 
@@ -10,7 +10,11 @@ import LocationView from '../Shared/LocationView'
 import UploadedImage from '../Shared/UploadedImage'
 import Message from '../Shared/Message'
 
+const DetailContainer = styled(Container)`
+padding: 1em;
 
+
+`
 const RequesterRequestDetail = () => {
   const context = useFmState();
   const dispatch = useFmDispatch();
@@ -43,7 +47,7 @@ const RequesterRequestDetail = () => {
   }
 
   return (
-    <Container>
+    <DetailContainer>
       <Row><Button onClick={ back } >Back </Button>
       </Row>
       <Row>
@@ -57,30 +61,32 @@ const RequesterRequestDetail = () => {
       <Row>
         <Col><h4>{ SelectedRequest.description }</h4></Col>
       </Row>
-      <Row>
-        <Col>
-          <Row><Col>Category:</Col><Col> { SelectedRequest.category }</Col></Row>
-          <Row><Col>Status:</Col><Col> { SelectedRequest.status }</Col></Row>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Row><Col>Location: </Col> <Col>{ SelectedRequest.location.building }</Col> </Row>
-          <Row><Col> { SelectedRequest.location.building === 'Exterior' && <LocationView lat={ SelectedRequest.location.lat } lng={ SelectedRequest.location.lng } /> } </Col> </Row>
-        </Col>
-      </Row>
+      <Col>
+        <Row>
+          <Col>
+            <Row><Col>Category:</Col><Col> { SelectedRequest.category }</Col></Row>
+            <Row><Col>Status:</Col><Col> { SelectedRequest.status }</Col></Row>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Row><Col>Location: </Col> <Col>{ SelectedRequest.location.building }</Col> </Row>
+            <Row><Col> { SelectedRequest.location.building === 'Exterior' && <LocationView lat={ SelectedRequest.location.lat } lng={ SelectedRequest.location.lng } /> } </Col> </Row>
+          </Col>
+        </Row>
+      </Col>
 
       <Row>
-        { SelectedRequest.photos && SelectedRequest.photos.map((photo) => <Col><UploadedImage props={ photo } /></Col>) }
+        { SelectedRequest.photos && <> <Row><h4>Images</h4></Row> { SelectedRequest.photos.map((photo) => <Col><UploadedImage props={ photo } /></Col>) } </> }
       </Row>
 
-      { SelectedRequest.messages && SelectedRequest.messages.map((message) => <Row><Col> <Message message={ message } key={ message } /></Col></Row>) }
+      { SelectedRequest.messages && <><Row> <h4>Messages</h4> </Row>{ SelectedRequest.messages.map((message) => <Row><Col> <Message message={ message } key={ message } /></Col></Row>) } </> }
 
       <Row>
 
         { (SelectedRequest.status === 'New' || SelectedRequest.status === 'Awaiting Info') && <Col><Button onClick={ addMessage } > Add Info </Button></Col> }
       </Row>
-    </Container >
+    </DetailContainer >
   );
 }
 

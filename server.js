@@ -25,6 +25,7 @@ app.use('/api/requests', require('./routes/api/requests'))
 app.use('/api/users', require('./routes/api/users'))
 app.use('/api/auth', require('./routes/api/auth'))
 
+app.use(express.static(__dirname + '/public'));
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 

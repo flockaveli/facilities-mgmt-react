@@ -31,6 +31,10 @@ margin: 2em 1em 1em 0em;
 padding: 0.5em;
 border-radius: 30px !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
+text-align: center;
+`
+const RequestListContainer = styled.div`
+margin: auto;
 `
 const CategoryMark = styled.div`
 background-color: ${props => getColor(props)};
@@ -45,7 +49,8 @@ padding: 1em;
 color: white;
 border-radius: 30px;
 margin: 2.5em 0em 0em 0em;
-
+font-weight: bold; 
+text-align: center;
 `
 const RequestList = ({ requests, isFetching }) => {
 
@@ -75,9 +80,10 @@ const RequestList = ({ requests, isFetching }) => {
     }
 
     return (
-        <div>
+        <>
             <Row>
-                <Col>
+
+                <RequestListContainer>
                     <Pagination itemsPerPage={ itemsPerPage }
                         totalRequests={ requests.length }
                         currentPage={ currentPage }
@@ -85,7 +91,8 @@ const RequestList = ({ requests, isFetching }) => {
                         next={ next }
                         prev={ prev }
                     />
-                </Col>
+                </RequestListContainer>
+
             </Row>
 
             { currentData && currentData.map((request) => (
@@ -98,8 +105,6 @@ const RequestList = ({ requests, isFetching }) => {
                                 <Col><Link to={ `/requests/${request._id}` }> { request.name }</Link>
                                 </Col>
                                 <Col>{ request.category }
-                                </Col>
-                                <Col>{ request.priority }
                                 </Col>
                                 <Col>{ request.requester.name }
                                 </Col>
@@ -116,7 +121,7 @@ const RequestList = ({ requests, isFetching }) => {
                 </Row>
 
             )) }
-        </div>
+        </>
     )
 }
 

@@ -93,24 +93,27 @@ const AdminRequestDetail = () => {
 
 
       <Row>
-        { SelectedRequest.photos && SelectedRequest.photos.map((photo) => <Col><UploadedImage props={ photo } /></Col>) }
+        { SelectedRequest.photos && <> <Row><h4>Images</h4></Row> { SelectedRequest.photos.map((photo) => <Col><UploadedImage props={ photo } /></Col>) } </> }
       </Row>
 
-      { SelectedRequest.messages && SelectedRequest.messages.map((message) => <Row><Col> <Message message={ message } key={ message } /></Col></Row>) }
+      { SelectedRequest.messages && <> <Row><h4>Messages</h4></Row> { SelectedRequest.messages.map((message) => <Row><Col> <Message message={ message } key={ message } /></Col></Row>) } </> }
 
       <Row>
-        { SelectedRequest.assignment.assignmentMessage ? <Row> <AssignmentDetails message={ SelectedRequest.assignment } /></Row> : null }
+        { SelectedRequest.assignment ? <> <Row><h4>Assignment</h4></Row> <Row> <AssignmentDetails message={ SelectedRequest.assignment } /></Row> </> : null }
       </Row>
       <Row>
-        { SelectedRequest.workerLog.message && <h4>Workers Log</h4> && <Row><WorkerLog message={ SelectedRequest.workerLog } /></Row> }
+        { SelectedRequest.workerLog.message && <>  <h4>Workers Log</h4> <Row><WorkerLog message={ SelectedRequest.workerLog } /></Row> </> }
       </Row>
 
       <Row><Col>
         <Button onClick={ respond }> Respond To Requester </Button>
       </Col>
-        <Col>
-          <Button onClick={ assign } > Assign </Button></Col>
-        <Col><Button onClick={ closeRequest }> Decline </Button></Col>
+        { SelectedRequest.status === 'New' && <Col>
+          <Button onClick={ assign } > Assign </Button></Col> }
+        { SelectedRequest.status !== 'Assigned' &&
+          <Col><Button onClick={ closeRequest }> Decline </Button></Col> }
+        { SelectedRequest.status === 'Pending Review' &&
+          <Col><Button onClick={ closeRequest }> Mark as completed </Button></Col> }
       </Row>
     </Container >
   );
