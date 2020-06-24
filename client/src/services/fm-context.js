@@ -9,6 +9,7 @@ let initialState = {
     email: "",
     name: "",
     type: "",
+    enabled: null
   },
   token: window.localStorage.getItem("token") || null,
   isAuthenticated: false,

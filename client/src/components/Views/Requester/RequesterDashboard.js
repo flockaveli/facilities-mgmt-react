@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import moment from 'moment'
 import styled from 'styled-components/macro';
 import { Spinner, Container, Row, Button, Col, DropdownButton, Dropdown } from 'react-bootstrap';
@@ -12,10 +12,11 @@ const DashboardWrapper = styled(Container)`
 align-items: center;
 padding: 1em 1em;
 `
-const ListRequest = styled(Container)`
+const ListRequest = styled.div`
 background: ${props => props.theme.colors.background};
 padding: 1em;
 margin: 2em 1em 1em 0em;
+border: 0;
 border-radius: 30px !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
 `
@@ -27,6 +28,7 @@ const RequesterDashboard = () => {
 
 	const state = useFmState();
 	const dispatch = useFmDispatch();
+	const history = useHistory();
 
 	const { requests, isFetching, user } = state
 
@@ -81,9 +83,9 @@ const RequesterDashboard = () => {
 
 			{ currentData && currentData.map((request) => (
 				<Row>
-					<ListRequest key={ request._id }  >
+					<ListRequest key={ request._id }>
 						<Row>
-							<Col>{ request.name }
+							<Col><Button onClick={ () => history.push(`/myrequests/${request._id}`) } >{ request.name }</Button>
 							</Col>
 							<Col>{ request.category }
 							</Col>
@@ -94,8 +96,9 @@ const RequesterDashboard = () => {
 						</Row>
 					</ListRequest>
 				</Row>
-			)) }
-		</DashboardWrapper>
+			))
+			}
+		</DashboardWrapper >
 	)
 
 

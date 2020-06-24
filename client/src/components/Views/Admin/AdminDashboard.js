@@ -92,6 +92,7 @@ padding: 1em;
 const AdminDashboard = () => {
 	const state = useFmState();
 	const dispatch = useFmDispatch();
+	
 	const { categories, requests, isFetching } = state
 
 	//filter functions
@@ -119,7 +120,7 @@ const AdminDashboard = () => {
 		setSearchTerm('');
 	};
 
-	const statusdropdown = [{ "value": 'New', "display": 'New' }, { "value": 'Awaiting Requester', "display": 'Awaiting Requester' }, { "value": 'Delayed', "display": 'Delayed' }, { "value": 'Assigned', "display": 'Assigned' }, { "value": 'Closed', "display": 'Closed' }]
+	const statusdropdown = [{ "value": 'New', "display": 'New' }, { "value": 'Awaiting Info', "display": 'Awaiting Info' }, { "value": 'Delayed', "display": 'Delayed' }, { "value": 'Assigned', "display": 'Assigned' }, { "value": 'Unresolved', "display": 'Unresolved' }, { "value": 'Pending Review', "display": 'Pending Review' }]
 	const prioritydropdown = [{ "value": "Low", "display": "Low" }, { "value": "Medium", "display": "Medium" }, { "value": "High", "display": "High" }]
 
 	//setting filter using local state

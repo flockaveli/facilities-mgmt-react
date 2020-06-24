@@ -52,7 +52,7 @@ const AdminRequestDetail = () => {
 
   return (
     <Container>
-      <Row><Button onClick={ back } >Back </Button>
+      <Row><Button onClick={ back() } >Back </Button>
       </Row>
       <Row>
         <Col sm={ 7 }>
@@ -101,10 +101,10 @@ const AdminRequestDetail = () => {
       </Row>
 
       <Row><Col>
-        <Button onClick={ respond }> Respond To Requester </Button>
+        <Button onClick={ respond() }> Respond To Requester </Button>
       </Col>
         <Col>
-          <Button onClick={ assign } > Assign </Button></Col>
+          <Button onClick={ assign() } > Assign </Button></Col>
         <Col><Button onClick={ closeRequest() }> Decline </Button></Col>
       </Row>
     </Container >
