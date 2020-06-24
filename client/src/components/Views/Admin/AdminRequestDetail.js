@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
+
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+
 import RequestDataService from "../../../services/RequestService";
 import { useFmState, useFmDispatch } from '../../../services/fm-context';
 
@@ -16,8 +18,9 @@ const AdminRequestDetail = () => {
   const context = useFmState();
   const dispatch = useFmDispatch();
 
-  const { _id } = useParams()
   const history = useHistory()
+
+  const { _id } = useParams()
   const { SelectedRequest } = context
 
   useEffect(() => {
@@ -94,7 +97,7 @@ const AdminRequestDetail = () => {
       { SelectedRequest.messages && SelectedRequest.messages.map((message) => <Row><Col> <Message message={ message } key={ message } /></Col></Row>) }
 
       <Row>
-        { SelectedRequest.assignment.assignmentMessage && <h4>Assignment Details</h4> && SelectedRequest.assignment.assignmentMessage && <Row><AssignmentDetails message={ SelectedRequest.assignment } /></Row> }
+        { SelectedRequest.assignment.assignmentMessage && <Row><AssignmentDetails message={ SelectedRequest.assignment } /></Row> }
       </Row>
       <Row>
         { SelectedRequest.workerLog.message && <h4>Workers Log</h4> && <Row><WorkerLog message={ SelectedRequest.workerLog } /></Row> }

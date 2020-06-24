@@ -35,7 +35,7 @@ let initialState = {
     assignment: [],
     messages: [{
       sender: "",
-      message: "",
+      assignmentMessage: "",
       photos: []
     }],
     workerLog: [{
