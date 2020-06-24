@@ -55,8 +55,7 @@ export const FmReducer = (state, action) => {
       return {
         ...state,
         user: action.payload.user,
-        token: action.payload.token,
-        isAuthenticated: true
+        token: action.payload.token
       };
     case "LOGOUT":
       localStorage.clear();
@@ -99,7 +98,6 @@ export const FmReducer = (state, action) => {
     case "REGISTER":
       return {
         ...state,
-        isAuthenticated: true,
         user: action.payload.user,
         token: action.payload.token
       };

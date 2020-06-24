@@ -1,164 +1,191 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components/macro'
 import { Redirect, Link } from 'react-router-dom'
+import { Row, Col, Button, Form } from 'react-bootstrap'
+import { ErrorMessage, Formik } from 'formik'
+import * as Yup from 'yup'
+
 import AuthDataService from '../../../services/AuthService'
 import { useFmState, useFmDispatch, hasType } from '../../../services/fm-context'
 
 
+import Logo from '../../Logo/Logo.svg';
+
+const UfmLogo = styled.img`
+width: 19vw;
+padding: 0em 2em 0em 1em;
+`;
+
+const CONTAINER = styled.div`
+background: ${props => props.theme.colors.background};
+  height: auto;
+  width: 80%;
+  margin: 5em auto;
+  padding: 1.5em;
+  
+border-radius: 30px !important;
+box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
+
+  @media(min-width: 786px) {
+    width: 60%;
+  }
+
+  label {
+    font-size: 1.2em;
+    font-weight: 400;
+  }
+
+  h1 {
+    color: #24B9B6;
+    padding-top: .5em;
+  }
+
+  .form-group {
+    margin-bottom: 2.5em;
+  }
+
+  .error {
+    border: 2px solid #FF6565;
+  }
+
+  .error-message {
+    color: #FF6565;
+    padding: .5em .2em;
+    height: 1em;
+    position: absolute;
+    font-size: .8em;
+  }
+`;
+
 const RegisterUser = () => {
     const state = useFmState();
     const dispatch = useFmDispatch()
-    const { errors, user, isAuthenticated, isSubmitting } = state
-    const [data, setData] = useState({ name: '', email: '', password: '' });
 
-    const registerUser = () => {
-        const { name, email, password } = data
-        try {
-            AuthDataService.registerAccount({ name, email, password })
-                .then(result => {
-                    if (result.status === 200) {
-                        dispatch({
-                            type: 'REGISTER',
-                            payload: result.data
-                        })
-                        const { user, token} = result.data
-                    localStorage.setItem("user", JSON.stringify(user));
-                    localStorage.setItem("token", token);
-                    } else {
-                        console.log('Error')
-                    }
-                }).catch(e => {
-                    console.log(e)
-                })
-        } catch (err) {
-            console.error('Auth error', err)
-        }
-    }
+    const { user } = state
 
-    // useEffect(() => {
-    //     if (isSubmitting) {
-    //         const noErrors = Object.keys(errors).length === 0
-    //         if (noErrors) {
-    //             registerUser()
-    //         } else {
-    //         }
-    //     }
-    // }, [errors])
 
-    // const handleBlur = () => {
-    //     const validationErrors = registerValidate(user)
-    //     // = validationErrors
-    // }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        registerUser()
-        //const validationErrors = registerValidate(user)
-    }
 
-    // const registerValidate = (user) => {
-    //     let errors = {}
-    //     if (!user.email) {
-    //         errors.email = 'Email is Required'
-    //     } else if (
-    //         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(user.email)) {
-    //         errors.email = 'Invalid email address';
-    //     }
 
-    //     if (!user.name) {
-    //         errors.name = 'Name is Required'
-    //     } else if (user.name.length < 6) {
-    //         errors.name = 'Name must be at least 6 chars'
-    //     }
-    //     if (!user.password) {
-    //         errors.password = 'Password is Required'
-    //     } else if (user.password.length < 6) {
-    //         errors.password = 'Password must be at least 6 chars'
-    //     }
-    //     return errors;
-    // }
+
+    const validationSchema = Yup.object().shape({
+        name: Yup.string()
+            .min(5, "Your name must be at least 5 characters")
+            .max(25, "No more than 25 characters please")
+            .required("Please enter your name"),
+        password: Yup.string()
+            .min(5, "Password must be at least 5 characters")
+            .max(25, "Password can't be longer than 20 characters")
+            .required("Please enter password"),
+        email: Yup.string()
+            .email("Please enter a valid email address")
+            .max(30, "Email must be less than 30 characters")
+            .required("Email address is required")
+            .test('Unitec', 'A Unitec email address is required', function (email) { return email.includes('unitec.ac.nz') })
+    });
+
 
     return (
-        <div>
-        {hasType(user, ['Worker']) ? (<Redirect to="/worker" />) : ( null ) }
-        {hasType(user, ['Requester']) ? (<Redirect to="/requester" />) : ( null ) }
-        {hasType(user, ['Admin']) ? (<Redirect to="/admin" />) : ( null ) }
 
-            <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input
-                    onChange={ (e) => {
-                        setData({
-                            ...data,
-                            [e.target.name]: e.target.value
-                          })
-                    } }
-                    // onBlur={ handleBlur }
-                    className="form-control"
-                    type="text"
-                    name="name"
-                    id="name"
-                    required
-                    value={ data.name }
-                    placeholder="Your full name"
+        <CONTAINER>
 
-                />
-                {/* { errors.name && <p className="error-text">{ errors.name }</p> } */}
-            </div>
-            <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input
-                    // onBlur={ handleBlur }
-                    onChange={ (e) => {
-                        setData({
-                            ...data,
-                            [e.target.name]: e.target.value
-                          })
+            <UfmLogo src={ Logo } />
+
+            { hasType(user, ['Worker']) ? (<Redirect to="/worker" />) : (null) }
+            { hasType(user, ['Requester']) ? (<Redirect to="/requester" />) : (null) }
+            { hasType(user, ['Admin']) ? (<Redirect to="/admin" />) : (null) }
+
+            <Formik
+                initialValues={ { name: "", email: "", password: "" } }
+                validationSchema={ validationSchema }
+                onSubmit={
+                    (values, { setSubmitting }) => {
+                        setSubmitting(true);
+                        AuthDataService.registerAccount(values)
+                            .then(result => {
+                                if (result.status === 200) {
+                                    dispatch({
+                                        type: 'REGISTER',
+                                        payload: result.data
+                                    })
+                                    const { user, token } = result.data
+                                    localStorage.setItem("user", JSON.stringify(user));
+                                    localStorage.setItem("token", token);
+                                } else {
+                                    console.log('Error')
+                                }
+                            }).catch(e => {
+                                console.log(e)
+                            })
                     } }
-                    type="text"
-                    className="form-control"
-                    name="email"
-                    id="email"
-                    required
-                    placeholder="Your Unitec email address"
-                    value={ data.email }
-                />
-                { errors.email && <p className="error-text">{ errors.email }</p> }
-            </div>
-            <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                    // onBlur={ handleBlur }
-                    onChange={ (e) => {
-                        setData({
-                            ...data,
-                            [e.target.name]: e.target.value
-                          })
-                    } }
-                    type="password"
-                    name="password"
-                    id="password"
-                    required
-                    placeholder="Create a password"
-                    value={ data.password }
-                />
-                { errors.password && <p className="error-text">{ errors.password }</p> }
-            </div>
-            <button
-                disabled={ isSubmitting }
-                onClick={ handleSubmit }
-                color="dark"
-                style={ { marginTop: "2rem" } }
-                className="btn btn-success">
-                Register
-				</button>
-            <p><button style={ { marginTop: "2rem" } }
-                className="btn btn-success">
-                <Link to="/login">
-                    Already have an account?</Link>
-            </button>
-            </p>
-        </div>
+            >
+                { ({
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting
+                }) => (
+                        <Form onSubmit={ handleSubmit } >
+                            <Form.Group controlId="nameRegistration">
+                                <Form.Label>Name:</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="name"
+                                    placeholder="Please enter your full name"
+                                    onChange={ handleChange }
+                                    onBlur={ handleBlur }
+                                    value={ values.name }
+                                    className={ touched.name && errors.name ? "has-error" : null } />
+                                { touched.name && errors.name ? (
+                                    <ErrorMessage>{ errors.name }</ErrorMessage>
+                                ) : null }
+                            </Form.Group>
+                            <Form.Group controlId="registerEmail">
+                                <Form.Label>Email:</Form.Label>
+                                <Form.Control
+                                    type="email"
+                                    name="email"
+                                    placeholder="Your Unitec email address"
+                                    onChange={ handleChange }
+                                    onBlur={ handleBlur }
+                                    value={ values.email }
+                                    className={ touched.email && errors.email ? "has-error" : null } />
+                                { touched.email && errors.email ? (
+                                    <div className="error-message">{ errors.email }</div>
+                                ) : null }
+                            </Form.Group>
+                            <Form.Group controlId="loginPassword">
+                                <Form.Label>Password :</Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    name="password"
+                                    placeholder=""
+                                    onChange={ handleChange }
+                                    onBlur={ handleBlur }
+                                    value={ values.password }
+                                    className={ touched.password && errors.password ? "has-error" : null } />
+                                { touched.email && errors.password ? (
+                                    <div className="error-message">{ errors.password }</div>
+                                ) : null }
+                            </Form.Group>
+                            <Row><Button secondary>
+                                <Link to="/login">
+                                    Already have an account?</Link>
+                            </Button><Button
+                                disabled={ isSubmitting }
+                                type="submit">
+                                    Log In
+				</Button>
+                            </Row>  </Form>
+                    ) }
+            </Formik>
+
+        </CONTAINER >
     )
+
 }
 
 export default RegisterUser;
