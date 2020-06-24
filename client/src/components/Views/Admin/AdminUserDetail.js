@@ -1,81 +1,76 @@
 
 import React, { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { Container, Row, Col, DropdownButton, Dropdown } from 'react-bootstrap';
-import RequestDataService from "../../../services/RequestService";
+import { useHistory, useParams } from 'react-router-dom';
+import { Container, Row, Col, Form } from 'react-bootstrap';
+
+import AuthDataService from "../../../services/AuthService";
+
 import { useFmState, useFmDispatch } from '../../../services/fm-context'
-
-
-
 
 
 const AdminUserDetail = () => {
   const context = useFmState();
   const dispatch = useFmDispatch();
+  const history = useHistory();
 
   let { _id } = useParams()
-  const { SelectedRequest } = context
+  const { SelectedUser } = context
+
 
   useEffect(() => {
-    getRequestDetail(_id)
+    getUserDetail(_id)
   }, [])
 
-  const getRequestDetail = _id => {
-    RequestDataService.get(_id)
+  const getUserDetail = _id => {
+    dispatch({ type: 'FETCHING' })
+    AuthDataService.getUser(_id)
       .then(response => {
-        dispatch({ type: 'SELECTED_REQUEST', payload: response.data });
-        console.log(response.data);
+        dispatch({ type: 'SELECTED_USER', payload: response.data });
       })
       .catch(e => {
         console.log(e);
       })
   }
 
+  const changeUserType = (e) => {
+    AuthDataService.changeUserType(SelectedUser._id, { type: e.target.value })
+    getUserDetail(SelectedUser._id)
+  }
 
+  const ableUser = (e) => {
+    AuthDataService.updateUser(SelectedUser._id, { enabled: e.target.checked });
+    getUserDetail(SelectedUser._id)
+  }
 
   return (
     <Container fluid="lg">
       <Row>
         <Col sm={ 7 }>
-          <h1>{ SelectedRequest.name }</h1>
+          <h1>{ SelectedUser.name }</h1>
         </Col>
-        <Col sm={ 3 }><p>Submitted: { SelectedRequest.createdAt }</p>
-          <p>Last update: { SelectedRequest.updatedAt }</p>
+        <Col sm={ 3 }><p>Created: { SelectedUser.createdAt }</p>
+          <p>Last Updated: { SelectedUser.updatedAt }</p>
         </Col>
       </Row>
 
       <Row>
-        <Col><h4>{ SelectedRequest.description }</h4></Col>
+        <Col><h4>{ SelectedUser.name }</h4></Col>
       </Row>
-
       <Row>
         <Col>
-          <Row><Col>Category:</Col><Col> { SelectedRequest.category }</Col></Row>
-          <Row><Col>Status:</Col><Col> { SelectedRequest.status }</Col></Row>
-          <Row><Col>Requested by:</Col><Col>{ SelectedRequest.requester }</Col></Row>
-          <Row><Col>    Priority:</Col><Col><DropdownButton id="dropdown-basic-button" title={ SelectedRequest.priority }>
-            <Dropdown.Item href="#/action-1">Low</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Medium</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">High</Dropdown.Item>
-          </DropdownButton>
-          </Col></Row>
-        </Col>
-
-
-
-        {/* </Row><Row><Col></Col><Col></Col></Row>
-          </Row><Row><Col></Col><Col></Col></Row> */}
-
-
-
-
-
-        <Col>
-          <p>Location: { SelectedRequest.location }</p>
+          <Row><Col>Type:</Col><Col> <Form.Control as="select" onChange={ changeUserType } value={ SelectedUser.type }>
+            <option value={ 'Requester' }>Requester</option>
+            <option value={ 'Admin' }>Admin</option>
+            <option value={ 'Worker' }>Worker</option>
+          </Form.Control></Col></Row>
+          <Row><Col>Status:</Col><Col><Form>
+            <Form.Check type="switch"
+              onChange={ ableUser }
+              checked={ SelectedUser.enabled }
+              label="Allow Requests"
+              id="disabled-custom-switch" /></Form> </Col></Row>
         </Col>
       </Row>
-
-
     </Container>
   );
 }

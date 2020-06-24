@@ -29,15 +29,14 @@ h3 {
 const theme = {
   colors: {
     main: '#f4f4f4',
-    secondary: 'mediumseagreen',
     background: '#ECF0F3',
     backgrounddarkshadow: '#ECF0F3',
     backgroundlightshadow: '#FFF',
-    security: '',
-    exterior: '',
-    maintenance: '',
-    cleaning: '',
-    signage: '',
+    security: '#FFA500',
+    exterior: '#00BFFF',
+    maintenance: '#3CB371',
+    cleaning: '#FF5733',
+    signage: '#8B008B',
   },
   mainfont: 'sans-serif',
   margin: 0,
@@ -52,4 +51,5 @@ export function StyleProvider({ children }) {
     </ThemeProvider>
   )
 }
+
 

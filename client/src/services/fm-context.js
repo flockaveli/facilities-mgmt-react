@@ -5,21 +5,51 @@ const FmDispatchContext = createContext()
 
 let initialState = {
   user: JSON.parse(window.localStorage.getItem("user")) || {
+    _id: "",
     email: "",
-    password: "",
+    name: "",
     type: "",
   },
   token: window.localStorage.getItem("token") || null,
   isAuthenticated: false,
   requests: [],
-  requestFilter: '',
   categories: [],
-  SelectedRequest: {},
-  isLoading: false,
+  SelectedUser: [],
+  SelectedRequest: {
+    name: "",
+    category: "",
+    status: "",
+    requester: {
+      _id: "",
+      email: "",
+      name: ""
+    },
+    photos: [],
+    priority: '',
+    location: {
+      building: "",
+      lat: null,
+      lng: null
+    },
+    assignment: [],
+    messages: [{
+      sender: "",
+      message: "",
+      photos: []
+    }],
+    workerLog: [{
+      sender: "",
+      resolution: "",
+      message: "",
+      photos: []
+    }]
+  },
+  isFetching: false,
   errors: []
 }
 
 export const FmReducer = (state, action) => {
+
   switch (action.type) {
     case "LOGIN":
       return {
@@ -33,16 +63,37 @@ export const FmReducer = (state, action) => {
       return {
         ...state,
         user: {
+          _id: "",
           email: "",
-          password: "",
+          name: "",
           type: "",
+          enabled: null
         },
         token: null,
         isAuthenticated: false,
         requests: [],
         categories: [],
-        SelectedRequest: {},
-        isLoading: false,
+        SelectedUser: [],
+        SelectedRequest: {
+          photos: [],
+          location: {
+            building: "",
+            lat: null,
+            lng: null
+          },
+          messages: [{
+            sender: "",
+            message: "",
+            photos: []
+          }],
+          workerLog: [{
+            sender: "",
+            resolution: "",
+            message: "",
+            photos: []
+          }]
+        },
+        isFetching: false,
         errors: []
       };
     case "REGISTER":
@@ -52,21 +103,10 @@ export const FmReducer = (state, action) => {
         user: action.payload.user,
         token: action.payload.token
       };
-    // case "ERROR":
-    //   localStorage.clear();
-    //   return {
-    //     ...state,
-    //     error: "Error",
-    //     isAuthenticated: false,
-    //     user: null,
-    //     isLoading: false,
-    //     password: ''
-    //   };
-    case "FETCHING_REQUESTS":
+    case "FETCHING":
       return {
         ...state,
-        isFetching: true,
-        hasError: false
+        isFetching: true
       };
     case "GET_REQUESTS_SUCCESS":
       return {
@@ -74,7 +114,7 @@ export const FmReducer = (state, action) => {
         isFetching: false,
         requests: action.payload
       };
-    case "GET_REQUESTS_FAILURE":
+    case "FAILURE":
       return {
         ...state,
         hasError: true,
@@ -86,11 +126,21 @@ export const FmReducer = (state, action) => {
         SelectedRequest: action.payload,
         isFetching: false
       };
+    case "SELECTED_USER":
+      return {
+        ...state,
+        SelectedUser: action.payload,
+        isFetching: false
+      };
     case "GET_CATEGORIES":
       return {
         ...state,
         categories: action.payload,
         isFetching: false
+      };
+    case "CREATED_REQUEST":
+      return {
+        ...state
       };
     default:
       throw new Error(`Unhandled action type: ${action.type}`)
@@ -127,5 +177,4 @@ function useFmDispatch() {
 
 export const hasType = (user, type) =>
   type.some(type => user.type.includes(...type));
-
 export { useFmState, useFmDispatch, FmProvider }
