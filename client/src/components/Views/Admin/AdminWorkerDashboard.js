@@ -13,10 +13,12 @@ align-items: center;
 padding: 1em 1em;
 `
 const ListRequest = styled.button`
+padding: 4em;
 background: ${props => props.theme.colors.background};
 margin: 2em 1em 1em 0em;
 border-radius: 30px !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
+text-align: center;
 `
 const AdminDashboardDisplay = styled.div`
 align-items: center;
@@ -27,7 +29,7 @@ align-items: center;
 margin: 2em 1em 2em;
 `
 
-const AdminUserDashboard = () => {
+const AdminWorkerDashboard = () => {
 	const state = useFmState();
 	const dispatch = useFmDispatch();
 	const history = useHistory();
@@ -42,7 +44,7 @@ const AdminUserDashboard = () => {
 
 	//request retrieval function declaration
 	const getUsers = () => {
-		AuthDataService.getUserList()
+		AuthDataService.getWorkerList()
 			.then(response => {
 				setUsers(response.data)
 				console.log(response.data);
@@ -95,4 +97,4 @@ const AdminUserDashboard = () => {
 };
 
 
-export default AdminUserDashboard;
+export default AdminWorkerDashboard;

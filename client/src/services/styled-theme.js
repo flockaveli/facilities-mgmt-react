@@ -31,12 +31,8 @@ h3 {
   body {
     font-family: ${props => props.theme.fontFamily};
   }
-Button {
-  padding: 2em;
-}
-Row {
-  padding: 1.5em;
-}
+
+
 
 `
 

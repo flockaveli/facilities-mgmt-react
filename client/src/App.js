@@ -9,9 +9,11 @@ import AdminRequestDetail from './components/Views/Admin/AdminRequestDetail'
 import AdminUserDetail from './components/Views/Admin/AdminUserDetail'
 import AdminDashboard from './components/Views/Admin/AdminDashboard'
 import AdminUserDashboard from './components/Views/Admin/AdminUserDashboard'
+import AdminWorkerDashboard from './components/Views/Admin/AdminWorkerDashboard'
 import UpdateRequest from './components/Views/Admin/AdminUpdateRequest'
 import AssignRequest from './components/Views/Admin/AssignRequest'
 import AdminRespond from './components/Views/Admin/AdminRespond'
+import AdminArchive from './components/Views/Admin/AdminArchive'
 
 import CreateRequest from './components/Views/Requester/CreateRequest'
 import RequesterDashboard from './components/Views/Requester/RequesterDashboard'
@@ -33,7 +35,6 @@ import FmNav from './components/Views/Shared/Navbar'
 const MainWrapper = styled.div`
 background: ${props => props.theme.colors.background};
 margin: 0;
-padding: 0;
 height: 100vh;
 `
 
@@ -63,7 +64,9 @@ function App() {
             { hasType(user, ['Requester']) && <Route path='/addmessage/:_id' component={ AddMessage } /> }
 
             { hasType(user, ['Admin']) && <Route path='/admin' component={ AdminDashboard } /> }
-            { hasType(user, ['Admin']) && <Route path='/users' component={ AdminUserDashboard } /> }
+            { hasType(user, ['Admin']) && <Route path='/archive' component={ AdminArchive } /> }
+            { hasType(user, ['Admin']) && <Route path='/requesters' component={ AdminUserDashboard } /> }
+            { hasType(user, ['Admin']) && <Route path='/workers' component={ AdminWorkerDashboard } /> }
             { hasType(user, ['Admin']) && <Route path="/userdetail/:_id" component={ AdminUserDetail } /> }
             { hasType(user, ['Admin']) && <Route path="/requests/:_id" component={ AdminRequestDetail } /> }
             { hasType(user, ['Admin']) && <Route path="/moderate/:_id" component={ UpdateRequest } /> }
