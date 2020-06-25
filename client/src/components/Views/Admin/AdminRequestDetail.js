@@ -62,14 +62,15 @@ const AdminRequestDetail = () => {
         <Col sm={ 7 }>
           <h1>{ SelectedRequest.name }</h1>
         </Col>
-        <Col sm={ 3 }><p>Submitted: { SelectedRequest.createdAt }</p>
-          <p>Last update: { SelectedRequest.updatedAt }</p>
+        <Col sm={ 3 }><Row>Submitted: { SelectedRequest.createdAt }</Row><Row>
+          Last update: { SelectedRequest.updatedAt }</Row>
         </Col>
       </Row>
+
+
+
       <Row>
-        <Col><h4>{ SelectedRequest.description }</h4></Col>
-      </Row>
-      <Row>
+        <Col>{ SelectedRequest.description }</Col>
         <Col>
           <Row><Col>Category:</Col><Col> { SelectedRequest.category }</Col></Row>
           <Row><Col>Status:</Col><Col> { SelectedRequest.status }</Col></Row>

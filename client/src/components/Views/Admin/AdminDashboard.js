@@ -46,7 +46,7 @@ margin: auto;
 `
 const FilterBar = styled.div`
 
-margin: 3em 0em 4em 7em;
+margin: 1em 0em 2em 3em;
 
 .Input {
 	margin: auto;
@@ -70,13 +70,13 @@ margin: 1em;
 background: transparent;
 padding: 0em 1em 0em 1em;
 text-align: center;
-
 box-shadow: 0px 0px 0px 0px #D1D9E6, 0px 0px 0px 0px #FFFFFF;
 
 :hover{
     color: #666;
     background-color: #ecf0f3;
 	border-color: #ecf0f3;
+box-shadow: 0px 0px 0px 0px #D1D9E6, 0px 0px 0px 0px #FFFFFF;
 };
 `
 

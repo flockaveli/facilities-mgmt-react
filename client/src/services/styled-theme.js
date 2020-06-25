@@ -3,6 +3,49 @@ import styled, { ThemeProvider, createGlobalStyle } from 'styled-components/macr
 
 
 export const GlobalStyle = createGlobalStyle`
+
+html {
+background: '#ECF0F3';
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    background: '#ECF0F3';
+
+}
+
+a {
+    color: #666666;
+    letter-spacing: 1px;
+}
+
+a:hover {
+    color: #666666;
+}
+
+.navbar a {
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: none;
+}
+
+.intro-text {
+    text-align: center;
+    font-size: 26px;
+}
+
+label.form-label {
+    font-size: 20px;
+}
+ 
+
+.AdminDashboard__FilterBar{
+  justify-content: space-evenly;
+   .btn-primary {
+    margin-top: 35px;
+}
+}
 html {
   font-size: 17px;
 }
@@ -18,19 +61,48 @@ h1 {
 }
 h2 {
   font-size: 2.5rem;
-  padding: 2em;
+  margin: 2em;
 }
 h3 {
   font-size: 2rem;
-  padding: 2em;
+  margin: 2em;
 }
-h3 {
+h4 {
   font-size: 4rem;
-  padding: 2em;
+  margin: 2em;
 }
   body {
     font-family: ${props => props.theme.fontFamily};
   }
+
+  .btn,
+  .btn-primary,
+  button {
+    border: 0;
+    padding: 1em;
+    margin: 2em;
+    box-shadow: rgb(209, 217, 230) 18px 18px 30px 0px, rgb(255, 255, 255) -18px -18px 30px 0px;
+    color: #666;
+    background-color: #ecf0f3;
+    border-color: #ecf0f3;
+
+    :hover {
+      background-color: #ecf0f3;
+      color: #666;
+    }
+
+
+    :focus {
+    color: #666;
+    background-color: #ecf0f3;
+    border-color: #ecf0f3;
+    box-shadow: none;
+    font-weight: bold;
+}
+
+  }
+
+  
 
 
 

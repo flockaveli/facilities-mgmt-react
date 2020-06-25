@@ -10,6 +10,8 @@ import RequestDataService from "../../../services/RequestService";
 import { useFmState, useFmDispatch } from '../../../services/fm-context'
 
 const CONTAINER = styled.div`
+
+justify-content: space-evenly;
 background: ${props => props.theme.colors.background};
   height: auto;
   width: 80%;

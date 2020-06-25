@@ -19,6 +19,8 @@ margin: 2em 1em 1em 0em;
 border-radius: 30px !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
 text-align: center;
+
+justify-content: space-evenly;
 `
 const AdminDashboardDisplay = styled.div`
 align-items: center;
