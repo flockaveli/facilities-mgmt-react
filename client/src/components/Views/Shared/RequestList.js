@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Container, Button, Spinner } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import moment from 'moment'
 import RequestDataService from "../../../services/RequestService";
@@ -62,6 +62,7 @@ const RequestList = ({ requests, isFetching }) => {
         return <Spinner animation="border" variant="primary" />
     }
 
+    const history = useHistory()
     const itemsPerPage = 2
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -103,10 +104,10 @@ const RequestList = ({ requests, isFetching }) => {
 
                 <Row>
                     <Col>
-                        <ListRequest key={ request._id }  >
+                        <ListRequest key={ request._id } onClick={ () => history.push(`/requests/${request._id}`) } >
                             <Row>
                                 <Col><CategoryMark category={ request.category } /></Col>
-                                <Col><Link to={ `/requests/${request._id}` }> { request.name }</Link>
+                                <Col> { request.name }
                                 </Col>
                                 <Col>{ request.category }
                                 </Col>
@@ -124,7 +125,8 @@ const RequestList = ({ requests, isFetching }) => {
                     </Col>
                 </Row>
 
-            )) }
+            ))
+            }
         </>
     )
 }

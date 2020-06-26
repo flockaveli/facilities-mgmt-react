@@ -73,6 +73,7 @@ h4 {
 }
   body {
     font-family: ${props => props.theme.fontFamily};
+    margin: 0 auto;
   }
 
   .btn,
