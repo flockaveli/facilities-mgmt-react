@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { Container, Row, Col, Form } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 import AuthDataService from "../../../services/AuthService";
 
@@ -42,8 +42,14 @@ const AdminUserDetail = () => {
     getUserDetail(SelectedUser._id)
   }
 
+  const back = () => {
+    history.goBack()
+  }
+
   return (
     <Container fluid="lg">
+
+      <Row><Button onClick={ back }>Back</Button></Row>
       <Row>
         <Col sm={ 7 }>
           <h1>{ SelectedUser.name }</h1>

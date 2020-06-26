@@ -35,7 +35,6 @@ const DropZoneContainer = styled.section`
 
 const ThumbsContainer = styled.aside`
 	display: 'grid';
-	background-color: #00e676;
 	width: 100;
 	height: auto;
 	margin: 1em;
@@ -46,7 +45,12 @@ const PreviewImg = styled(Image)`
 	width: 5em;
 	height: 5em;
 	object-fit: "cover";
-    object-position: "center"
+    object-position: "center";
+    :hover {
+width: 10em;
+height: auto;
+border-radius: 0;
+    }
   `;
 
 const StyledDropzone = (props) => {

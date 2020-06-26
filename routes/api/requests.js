@@ -247,6 +247,16 @@ router.get('/myrequests/:_id', (req, res) => {
         .then(requests => res.json(requests))
 });
 
+//@route GET api/requests/myrequests
+//@desc GET all requests made by logged in requester
+//@access Requester
+router.get('/myrequests/:_id', (req, res) => {
+    Request.find({ 'requester._id': req.params._id, status: { $ne: 'Closed' } },
+        { name: 1, category: 1, status: 1, updatedAt: 1 })
+        .sort({ updatedAt: -1 })
+        .then(requests => res.json(requests))
+});
+
 //@route GET api/requests/requesterarchive
 //@desc GET all closed requests assigned to logged in requester
 //@access requester

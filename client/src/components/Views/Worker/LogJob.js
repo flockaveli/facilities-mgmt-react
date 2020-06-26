@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Container, Row, Button, Col, Form, DropdownButton, Dropdown } from 'react-bootstrap';
 
-
 import StyledDropzone from '../Shared/StyledDropzone.js';
 
 import requestDataService from "../../../services/RequestService";

@@ -9,6 +9,12 @@ import { Container, Row, Button, Col, Form } from 'react-bootstrap';
 import AuthDataService from '../../../services/AuthService'
 import { useFmState, useFmDispatch, hasType } from '../../../services/fm-context'
 
+import Logo from '../../Logo/Logo.svg';
+
+const UfmLogo = styled.img`
+width: 19vw;
+padding: 0em 2em 0em 1em;
+`;
 const CONTAINER = styled.div`
 background: ${props => props.theme.colors.background};
   height: auto;
@@ -74,88 +80,92 @@ const Login = () => {
 
     return (
         //redirects to differentiated app homepages if user is logged in
-        <CONTAINER>
+        <>
 
             { hasType(user, ['Worker']) ? (<Redirect to="/worker" />) : (null) }
             { hasType(user, ['Requester']) ? (<Redirect to="/requester" />) : (null) }
             { hasType(user, ['Admin']) ? (<Redirect to="/admin" />) : (null) }
 
+            <CONTAINER>
+                <UfmLogo src={ Logo } />
 
-            <Formik
-                initialValues={ { email: "", password: "" } }
-                validationSchema={ validationSchema }
-                onSubmit={
-                    (values, { setSubmitting }) => {
-                        setSubmitting(true);
-                        try {
-                            const { email, password } = values
-                            AuthDataService.postLogin({ email, password })
-                                .then(result => {
-                                    if (result.status === 200) {
-                                        dispatch({
-                                            type: 'LOGIN',
-                                            payload: result.data
-                                        })
-                                        const { user, token } = result.data
-                                        localStorage.setItem("user", JSON.stringify(user));
-                                        localStorage.setItem("token", token);
-                                    } else {
-                                        console.log('Error')
+
+                <Formik
+                    initialValues={ { email: "", password: "" } }
+                    validationSchema={ validationSchema }
+                    onSubmit={
+                        (values, { setSubmitting }) => {
+                            setSubmitting(true);
+                            try {
+                                const { email, password } = values
+                                AuthDataService.postLogin({ email, password })
+                                    .then(result => {
+                                        if (result.status === 200) {
+                                            dispatch({
+                                                type: 'LOGIN',
+                                                payload: result.data
+                                            })
+                                            const { user, token } = result.data
+                                            localStorage.setItem("user", JSON.stringify(user));
+                                            localStorage.setItem("token", token);
+                                        } else {
+                                            console.log('Error')
+                                        }
                                     }
-                                }
-                                )
-                                .catch(e => {
-                                    console.log(e)
-                                })
-                        } catch (err) {
-                            console.error('Auth error', err)
-                        }
-                    } }>
-                { ({ values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting }) => (
-                        <Form onSubmit={ handleSubmit } >
-                            <Form.Group controlId="loginEmail">
-                                <Form.Label>Email:</Form.Label>
-                                <Form.Control
-                                    type="email"
-                                    name="email"
-                                    placeholder="Your Unitec email address"
-                                    onChange={ handleChange }
-                                    onBlur={ handleBlur }
-                                    value={ values.email }
-                                    className={ touched.email && errors.email ? "has-error" : null } />
-                                { touched.email && errors.email ? (
-                                    <div className="error-message">{ errors.email }</div>
-                                ) : null }
-                            </Form.Group>
-                            <Form.Group controlId="loginPassword">
-                                <Form.Label>Password :</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    name="password"
-                                    placeholder=""
-                                    onChange={ handleChange }
-                                    onBlur={ handleBlur }
-                                    value={ values.password }
-                                    className={ touched.password && errors.password ? "has-error" : null } />
-                                { touched.email && errors.password ? (
-                                    <div className="error-message">{ errors.password }</div>
-                                ) : null }
-                            </Form.Group>
-                            <Button
-                                disabled={ isSubmitting }
-                                type="submit">
-                                Log In
+                                    )
+                                    .catch(e => {
+                                        console.log(e)
+                                    })
+                            } catch (err) {
+                                console.error('Auth error', err)
+                            }
+                        } }>
+                    { ({ values,
+                        errors,
+                        touched,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        isSubmitting }) => (
+                            <Form onSubmit={ handleSubmit } >
+                                <Form.Group controlId="loginEmail">
+                                    <Form.Label>Email:</Form.Label>
+                                    <Form.Control
+                                        type="email"
+                                        name="email"
+                                        placeholder="Your Unitec email address"
+                                        onChange={ handleChange }
+                                        onBlur={ handleBlur }
+                                        value={ values.email }
+                                        className={ touched.email && errors.email ? "has-error" : null } />
+                                    { touched.email && errors.email ? (
+                                        <div className="error-message">{ errors.email }</div>
+                                    ) : null }
+                                </Form.Group>
+                                <Form.Group controlId="loginPassword">
+                                    <Form.Label>Password :</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        name="password"
+                                        placeholder=""
+                                        onChange={ handleChange }
+                                        onBlur={ handleBlur }
+                                        value={ values.password }
+                                        className={ touched.password && errors.password ? "has-error" : null } />
+                                    { touched.email && errors.password ? (
+                                        <div className="error-message">{ errors.password }</div>
+                                    ) : null }
+                                </Form.Group>
+                                <Button
+                                    disabled={ isSubmitting }
+                                    type="submit">
+                                    Log In
 				</Button>
-                        </Form>
-                    ) }
-            </Formik>
-        </CONTAINER>
+                            </Form>
+                        ) }
+                </Formik>
+            </CONTAINER>
+        </>
     )
 }
 export default Login;

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
+
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+
 import RequestDataService from "../../../services/RequestService";
 import { useFmState, useFmDispatch } from '../../../services/fm-context';
 
@@ -10,14 +12,16 @@ import WorkerLog from '../Shared/WorkerLog';
 
 import LocationView from '../Shared/LocationView';
 import UploadedImage from '../Shared/UploadedImage'
+import e from 'cors';
 
 
 const AdminRequestDetail = () => {
   const context = useFmState();
   const dispatch = useFmDispatch();
 
-  const { _id } = useParams()
   const history = useHistory()
+
+  const { _id } = useParams()
   const { SelectedRequest } = context
 
   useEffect(() => {
@@ -58,14 +62,15 @@ const AdminRequestDetail = () => {
         <Col sm={ 7 }>
           <h1>{ SelectedRequest.name }</h1>
         </Col>
-        <Col sm={ 3 }><p>Submitted: { SelectedRequest.createdAt }</p>
-          <p>Last update: { SelectedRequest.updatedAt }</p>
+        <Col sm={ 3 }><Row>Submitted: { SelectedRequest.createdAt }</Row><Row>
+          Last update: { SelectedRequest.updatedAt }</Row>
         </Col>
       </Row>
+
+
+
       <Row>
-        <Col><h4>{ SelectedRequest.description }</h4></Col>
-      </Row>
-      <Row>
+        <Col>{ SelectedRequest.description }</Col>
         <Col>
           <Row><Col>Category:</Col><Col> { SelectedRequest.category }</Col></Row>
           <Row><Col>Status:</Col><Col> { SelectedRequest.status }</Col></Row>
@@ -77,6 +82,7 @@ const AdminRequestDetail = () => {
             <option value={ "High" }>High</option>
           </Form.Control></Col>
           </Row>
+          {/* <Row>{ SelectedRequest.assignment.workers && SelectedRequest.assignment.workers.map((worker) => </Row> */ }
         </Col>
       </Row>
       <Row>
@@ -88,24 +94,27 @@ const AdminRequestDetail = () => {
 
 
       <Row>
-        { SelectedRequest.photos && SelectedRequest.photos.map((photo) => <Col><UploadedImage props={ photo } /></Col>) }
+        { SelectedRequest.photos && <> <Row><h4>Images</h4></Row> { SelectedRequest.photos.map((photo) => <Col><UploadedImage props={ photo } /></Col>) } </> }
       </Row>
 
-      { SelectedRequest.messages && SelectedRequest.messages.map((message) => <Row><Col> <Message message={ message } key={ message } /></Col></Row>) }
+      { SelectedRequest.messages && <> <Row><h4>Messages</h4></Row> { SelectedRequest.messages.map((message) => <Row><Col> <Message message={ message } key={ message } /></Col></Row>) } </> }
 
       <Row>
-        { SelectedRequest.assignment.assignmentMessage && <h4>Assignment Details</h4> && SelectedRequest.assignment.assignmentMessage && <Row><AssignmentDetails message={ SelectedRequest.assignment } /></Row> }
+        { SelectedRequest.assignment ? <> <Row><h4>Assignment</h4></Row> <Row> <AssignmentDetails message={ SelectedRequest.assignment } /></Row> </> : null }
       </Row>
       <Row>
-        { SelectedRequest.workerLog.message && <h4>Workers Log</h4> && <Row><WorkerLog message={ SelectedRequest.workerLog } /></Row> }
+        { SelectedRequest.workerLog.message && <>  <h4>Workers Log</h4> <Row><WorkerLog message={ SelectedRequest.workerLog } /></Row> </> }
       </Row>
 
       <Row><Col>
         <Button onClick={ respond }> Respond To Requester </Button>
       </Col>
-        <Col>
-          <Button onClick={ assign } > Assign </Button></Col>
-        <Col><Button onClick={ closeRequest() }> Decline </Button></Col>
+        { SelectedRequest.status === 'New' && <Col>
+          <Button onClick={ assign } > Assign </Button></Col> }
+        { SelectedRequest.status !== 'Assigned' &&
+          <Col><Button onClick={ closeRequest }> Decline </Button></Col> }
+        { SelectedRequest.status === 'Pending Review' &&
+          <Col><Button onClick={ closeRequest }> Mark as completed </Button></Col> }
       </Row>
     </Container >
   );

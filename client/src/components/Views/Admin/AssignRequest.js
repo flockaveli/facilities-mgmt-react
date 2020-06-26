@@ -32,6 +32,7 @@ const AssignRequest = () => {
     useEffect(() => {
         getWorkerDetails()
         getRequestDetail(_id)
+        return 
     }, [])
 
     const getWorkerDetails = () => {

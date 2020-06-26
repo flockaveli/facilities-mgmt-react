@@ -6,6 +6,9 @@ import form from "./http-formdata";
 const getAll = () => {
   return http.get("/requests/admin");
 };
+const getArchive = () => {
+  return http.get("/requests/archive");
+};
 
 const getCategoryCount = () => {
   return http.get(`/requests/categories`);
@@ -24,6 +27,9 @@ const assignRequest = (_id, data) => {
 };
 const changePriority = (_id, data) => {
   return http.put(`/requests/priority/${_id}`, data);
+};
+const closeRequest = (_id, data) => {
+  return http.put(`/requests/closerequest/${_id}`, data);
 };
 
 const adminRespond = (_id, data) => {
@@ -59,12 +65,14 @@ const addMessage = (_id, data) => {
 
 export default {
   getAll,
+  getArchive,
   getDetail,
   adminRespond,
   assignRequest,
   getCategoryCount,
   getWorkers,
   changePriority,
+  closeRequest,
 
   getWorkersRequests,
   logJob,

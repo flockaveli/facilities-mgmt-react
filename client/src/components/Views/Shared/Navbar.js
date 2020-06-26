@@ -53,11 +53,14 @@ const FmNav = () => {
       <Link to={ "/admin" } >
         Dashboard
               </Link>
-      {/* <Link to={ "/archive" } >
+      <Link to={ "/archive" } >
         Archive
-              </Link> */}
-      <Link to={ "/users" } >
+              </Link>
+      <Link to={ "/requesters" } >
         Users
+              </Link>
+      <Link to={ "/workers" } >
+        Staff
               </Link>
       <div> Welcome, { user.name } </div>
       <Logout />

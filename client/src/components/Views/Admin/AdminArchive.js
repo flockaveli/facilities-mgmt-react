@@ -46,7 +46,7 @@ margin: auto;
 `
 const FilterBar = styled.div`
 
-margin: 1em 0em 2em 3em;
+margin: 3em 0em 4em 7em;
 
 .Input {
 	margin: auto;
@@ -70,13 +70,13 @@ margin: 1em;
 background: transparent;
 padding: 0em 1em 0em 1em;
 text-align: center;
+
 box-shadow: 0px 0px 0px 0px #D1D9E6, 0px 0px 0px 0px #FFFFFF;
 
 :hover{
     color: #666;
     background-color: #ecf0f3;
 	border-color: #ecf0f3;
-box-shadow: 0px 0px 0px 0px #D1D9E6, 0px 0px 0px 0px #FFFFFF;
 };
 `
 
@@ -88,7 +88,7 @@ width: 1em;
 border-radius: 50%;
 `
 //functional component declaration
-const AdminDashboard = () => {
+const AdminArchive = () => {
 	const state = useFmState();
 	const dispatch = useFmDispatch();
 
@@ -131,7 +131,7 @@ const AdminDashboard = () => {
 	//request retrieval function declaration
 	const getAllRequests = () => {
 		dispatch({ type: 'FETCHING' })
-		RequestDataService.getAll()
+		RequestDataService.getArchive()
 			.then(response => {
 				dispatch({ type: 'GET_REQUESTS_SUCCESS', payload: response.data });
 			})
@@ -153,15 +153,7 @@ const AdminDashboard = () => {
 	//returning JSX to render
 	return (
 		<AdminDashboardWrapper>
-			<CategoryButtonWrapper>
-				<Row>
-					{ categories && categories.map((category, _id) => (
-						<Col>
-							<CategoryButton key={ _id } onClick={ () => setFilterCategory(category._id.category) }> <Row><CategoryMark category={ category._id.category } /></Row><Row> { category._id.category } </Row><Row>{ category.count } Active Requests</Row></CategoryButton>
-						</Col>
-					)) }
-				</Row>
-			</CategoryButtonWrapper>
+
 			<FilterBar>
 				<Row>
 					<Col>
@@ -176,28 +168,6 @@ const AdminDashboard = () => {
 											placeholder='Filter here…'
 											onChange={ searchInput }
 										/>
-									</Form.Group>
-								</Col><Col>
-									<Form.Group controlId="createRequestFormCategory">
-										<Form.Label>Priority</Form.Label>
-										<Form.Control as="select"
-											name="priorityFilterSelect"
-											value={ filterPriority }
-											onChange={ priorityInput }	>
-											<option defaultValue key={ 0 } value={ '' }>-</option>
-											{ prioritydropdown.map((category) => <option key={ category.value } value={ category.value }>{ category.display }</option>) }
-										</Form.Control>
-									</Form.Group>
-								</Col><Col>
-									<Form.Group controlId="createRequestFormCategory">
-										<Form.Label >Status</Form.Label>
-										<Form.Control as="select"
-											name="statusFilterInput"
-											value={ filterStatus }
-											onChange={ statusInput } >
-											<option selected key={ 0 } value={ '' }>-</option>
-											{ statusdropdown.map((category) => <option key={ category.value } value={ category.value }>{ category.display }</option>) }
-										</Form.Control>
 									</Form.Group>
 								</Col>
 								<Col>
@@ -225,4 +195,4 @@ const AdminDashboard = () => {
 };
 
 
-export default AdminDashboard;
+export default AdminArchive;

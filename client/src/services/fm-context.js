@@ -9,6 +9,7 @@ let initialState = {
     email: "",
     name: "",
     type: "",
+    enabled: null
   },
   token: window.localStorage.getItem("token") || null,
   isAuthenticated: false,
@@ -31,7 +32,10 @@ let initialState = {
       lat: null,
       lng: null
     },
-    assignment: [],
+    assignment: {
+      workers: [],
+      assignmentMessage: "",
+    },
     messages: [{
       sender: "",
       message: "",
@@ -55,8 +59,7 @@ export const FmReducer = (state, action) => {
       return {
         ...state,
         user: action.payload.user,
-        token: action.payload.token,
-        isAuthenticated: true
+        token: action.payload.token
       };
     case "LOGOUT":
       localStorage.clear();
@@ -81,6 +84,10 @@ export const FmReducer = (state, action) => {
             lat: null,
             lng: null
           },
+          assignment: {
+            workers: [],
+            assignmentMessage: ''
+          },
           messages: [{
             sender: "",
             message: "",
@@ -99,7 +106,6 @@ export const FmReducer = (state, action) => {
     case "REGISTER":
       return {
         ...state,
-        isAuthenticated: true,
         user: action.payload.user,
         token: action.payload.token
       };

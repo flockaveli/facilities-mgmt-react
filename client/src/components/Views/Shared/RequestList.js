@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Container, Spinner } from 'react-bootstrap'
+import { Row, Col, Container, Button, Spinner } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import moment from 'moment'
@@ -25,12 +25,20 @@ const getColor = (props) => {
     }
     return '#eeeeee';
 }
-const ListRequest = styled(Container)`
+const ListRequest = styled(Button)`
 background: ${props => props.theme.colors.background};
 margin: 2em 1em 1em 0em;
 padding: 0.5em;
 border-radius: 30px !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
+text-align: center;
+
+justify-content: space-evenly;
+`
+const RequestListContainer = styled.div`
+margin: auto;
+
+justify-content: space-evenly;
 `
 const CategoryMark = styled.div`
 background-color: ${props => getColor(props)};
@@ -42,6 +50,11 @@ border-radius: 50%;
 const PriorityTag = styled.div`
 background-color: darkred;
 padding: 1em;
+color: white;
+border-radius: 30px;
+margin: 2.5em 0em 0em 0em;
+font-weight: bold; 
+text-align: center;
 `
 const RequestList = ({ requests, isFetching }) => {
 
@@ -71,9 +84,10 @@ const RequestList = ({ requests, isFetching }) => {
     }
 
     return (
-        <div>
+        <>
             <Row>
-                <Col>
+
+                <RequestListContainer>
                     <Pagination itemsPerPage={ itemsPerPage }
                         totalRequests={ requests.length }
                         currentPage={ currentPage }
@@ -81,7 +95,8 @@ const RequestList = ({ requests, isFetching }) => {
                         next={ next }
                         prev={ prev }
                     />
-                </Col>
+                </RequestListContainer>
+
             </Row>
 
             { currentData && currentData.map((request) => (
@@ -95,8 +110,6 @@ const RequestList = ({ requests, isFetching }) => {
                                 </Col>
                                 <Col>{ request.category }
                                 </Col>
-                                <Col>{ request.priority }
-                                </Col>
                                 <Col>{ request.requester.name }
                                 </Col>
                                 <Col>{ moment(request.updatedAt).format("L LT") }
@@ -107,12 +120,12 @@ const RequestList = ({ requests, isFetching }) => {
                         </ListRequest>
                     </Col>
                     <Col xs={ 2 }>
-                        { request.priority === "High" ? <PriorityTag /> : null }
+                        { request.priority === "High" ? <PriorityTag>High</PriorityTag> : null }
                     </Col>
                 </Row>
 
             )) }
-        </div>
+        </>
     )
 }
 

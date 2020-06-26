@@ -3,8 +3,9 @@ import styled from 'styled-components/macro';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const MapContainer = styled.div`
-  border-width: 2px;
+  border-width: 0;
   border-radius: 50;
+  margin: auto;
 `;
 
 const containerStyle = {
@@ -14,6 +15,7 @@ const containerStyle = {
 };
 
 export const LocationView = (props) => {
+
     const place = { lat: props.lat, lng: props.lng }
 
     const options = {

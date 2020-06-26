@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components/macro';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -18,6 +19,7 @@ background: ${props => props.theme.colors.background};
   margin: 5em auto;
   padding: 2em;
   
+  margin: auto;
 border-radius: 30px !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
 
@@ -49,11 +51,12 @@ const CreateRequest = () => {
 
 	const context = useFmState();
 	const dispatch = useFmDispatch();
+	const history = useHistory();
 
 	const { user } = context;
 
 	const categorydropdown = [{ "value": "Signage", "display": "Signage" }, { "value": "Security", "display": "Security" }, { "value": "Cleaning & Waste", "display": "Cleaning & Waste" }, { "value": "Building Maintenance", "display": "Building Maintenance" }, { "value": "Exterior", "display": "Exterior" },]
-	const locationdropdown = [{ "value": "Signage", "display": "Signage" }, { "value": "Security", "display": "Security" }, { "value": "170", "display": "170" }, { "value": "183", "display": "183" }, { "value": "Exterior", "display": "Exterior" },]
+	const locationdropdown = [{ "value": "Te Puna", "display": "Te Puna" }, { "value": "180", "display": "180" }, { "value": "170", "display": "170" }, { "value": "183", "display": "183" }, { "value": "Exterior", "display": "Exterior" },]
 
 
 	const validationSchema = Yup.object().shape({
@@ -115,8 +118,10 @@ const CreateRequest = () => {
 											dispatch({
 												type: 'CREATED_REQUEST'
 											})
+											history.push('/requester')
 										} else {
 											console.log('Error')
+											history.push('/requester')
 										}
 									})
 							} catch (err) {
