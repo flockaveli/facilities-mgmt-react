@@ -82,12 +82,11 @@ const AdminRequestDetail = () => {
             <option value={ "High" }>High</option>
           </Form.Control></Col>
           </Row>
-          {/* <Row>{ SelectedRequest.assignment.workers && SelectedRequest.assignment.workers.map((worker) => </Row> */ }
         </Col>
       </Row>
       <Row>
         <Col>
-          <Row><Col>Location: </Col> <Col>{ SelectedRequest.location.building }</Col> </Row>
+          <Row><Col>Location: </Col> <Col>{ SelectedRequest.location.building }</Col> </Row> || 
           <Row><Col> { SelectedRequest.location.building === 'Exterior' && <LocationView lat={ SelectedRequest.location.lat } lng={ SelectedRequest.location.lng } /> } </Col> </Row>
         </Col>
       </Row>

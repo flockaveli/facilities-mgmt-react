@@ -8,14 +8,14 @@ const WorkerDashboard = () => {
 
     const state = useFmState();
     const dispatch = useFmDispatch();
-    const { requests } = state
+    const { requests, user } = state
 
     useEffect(() => {
         getAllRequests();
     }, [])
 
     const getAllRequests = () => {
-        RequestDataService.getAll()
+        RequestDataService.getWorkersRequests(user._id)
             .then(response => {
                 dispatch({ type: 'GET_REQUESTS_SUCCESS', payload: response.data });
                 console.log(response.data);

@@ -10,7 +10,7 @@ import { useFmState, useFmDispatch } from '../../../services/fm-context'
 //styling of components with CSS-in-JS
 const AdminDashboardWrapper = styled(Container)`
 align-items: center;
-padding: 1em 1em;
+width: 60%;
 `
 const ListRequest = styled.button`
 padding: 4em;
@@ -19,7 +19,8 @@ margin: 2em 1em 1em 0em;
 border-radius: 30px !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
 text-align: center;
-
+width: 60%;
+border: 0 !important;
 justify-content: space-evenly;
 `
 const AdminDashboardDisplay = styled.div`

@@ -18,8 +18,8 @@ const getDetail = _id => {
   return http.get(`/requests/detail/${_id}`);
 };
 
-const getWorkers = () => {
-  return http.get(`/user/workers`);
+const getWorkload = _id => {
+  return http.get(`/requests/workerjobcount/${_id}`);
 };
 
 const assignRequest = (_id, data) => {
@@ -70,7 +70,7 @@ export default {
   adminRespond,
   assignRequest,
   getCategoryCount,
-  getWorkers,
+  getWorkload,
   changePriority,
   closeRequest,
 

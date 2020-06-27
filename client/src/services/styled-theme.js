@@ -61,15 +61,15 @@ h1 {
 }
 h2 {
   font-size: 2.5rem;
-  margin: 2em;
+  margin: 1em;
 }
 h3 {
   font-size: 2rem;
-  margin: 2em;
+  margin: 1em;
 }
 h4 {
-  font-size: 4rem;
-  margin: 2em;
+  font-size: 2rem;
+  margin: 1em;
 }
   body {
     font-family: ${props => props.theme.fontFamily};
@@ -78,28 +78,24 @@ h4 {
 
   .btn,
   .btn-primary,
-  button {
-    border: 0;
-    padding: 1em;
-    margin: 2em;
+  .button {
+    border: 0 !important;
     box-shadow: rgb(209, 217, 230) 18px 18px 30px 0px, rgb(255, 255, 255) -18px -18px 30px 0px;
-    color: #666;
-    background-color: #ecf0f3;
+    color: #666 !important;
+    border: 0 !important;
+    background-color: #ecf0f3 !important;
     border-color: #ecf0f3;
 
+    :focus,
+:active,
     :hover {
-      background-color: #ecf0f3;
-      color: #666;
+      background-color: #ecf0f3 !important;
+      color: #666 !important;
+      border: 0 !important;
     }
+      
 
-
-    :focus {
-    color: #666;
-    background-color: #ecf0f3;
-    border-color: #ecf0f3;
-    box-shadow: none;
-    font-weight: bold;
-}
+    
 
   }
 

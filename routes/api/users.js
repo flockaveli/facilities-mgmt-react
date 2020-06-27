@@ -106,12 +106,7 @@ router.post('/register', (req, res) => {
                                     if (err) throw err;
                                     res.json({
                                         token,
-                                        user: {
-                                            _id: user._id,
-                                            name: user.name,
-                                            email: user.email,
-                                            type: user.type
-                                        }
+                                        user: user
                                     })
 
                                 }

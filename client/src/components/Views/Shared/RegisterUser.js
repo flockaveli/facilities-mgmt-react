@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro'
-import { Redirect, Link } from 'react-router-dom'
-import { Row, Col, Button, Form } from 'react-bootstrap'
+import { Redirect, useHistory } from 'react-router-dom'
+import { Row, Container, Col, Button, Form } from 'react-bootstrap'
 import { ErrorMessage, Formik } from 'formik'
 import * as Yup from 'yup'
 
@@ -11,17 +11,22 @@ import { useFmState, useFmDispatch, hasType } from '../../../services/fm-context
 
 import Logo from '../../Logo/Logo.svg';
 
-const UfmLogo = styled.img`
-width: 19vw;
-padding: 0em 2em 0em 1em;
-`;
 
-const CONTAINER = styled.div`
+const UfmLogo = styled.img`
+width: 14vw;
+margin: auto !important;
+`;
+const CONTAINER = styled(Container)`
+align-items: center;
 background: ${props => props.theme.colors.background};
   height: auto;
-  width: 80%;
-  margin: 5em auto;
-  padding: 1.5em;
+  width: 45%;
+  margin: auto;
+  padding: 2em;
+
+  .row {
+      text-align: center;
+  }
   
 border-radius: 30px !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
@@ -30,36 +35,12 @@ box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
     width: 60%;
   }
 
-  label {
-    font-size: 1.2em;
-    font-weight: 400;
-  }
-
-  h1 {
-    color: #24B9B6;
-    padding-top: .5em;
-  }
-
-  .form-group {
-    margin-bottom: 2.5em;
-  }
-
-  .error {
-    border: 2px solid #FF6565;
-  }
-
-  .error-message {
-    color: #FF6565;
-    padding: .5em .2em;
-    height: 1em;
-    position: absolute;
-    font-size: .8em;
-  }
 `;
 
 const RegisterUser = () => {
     const state = useFmState();
     const dispatch = useFmDispatch()
+    const history = useHistory()
 
     const { user } = state
 
@@ -88,9 +69,9 @@ const RegisterUser = () => {
     return (
 
         <CONTAINER>
-
-            <UfmLogo src={ Logo } />
-
+            <Row>
+                <UfmLogo src={ Logo } />
+            </Row>
             { hasType(user, ['Worker']) ? (<Redirect to="/worker" />) : (null) }
             { hasType(user, ['Requester']) ? (<Redirect to="/requester" />) : (null) }
             { hasType(user, ['Admin']) ? (<Redirect to="/admin" />) : (null) }
@@ -171,13 +152,12 @@ const RegisterUser = () => {
                                     <div className="error-message">{ errors.password }</div>
                                 ) : null }
                             </Form.Group>
-                            <Row><Button secondary>
-                                <Link to="/login">
-                                    Already have an account?</Link>
+                            <Row><Button onClick={ () => history.push('/login') }>
+                                Already have an account?
                             </Button><Button
-                                disabled={ isSubmitting }
-                                type="submit">
-                                    Log In
+                                    disabled={ isSubmitting }
+                                    type="submit">
+                                    Register
 				</Button>
                             </Row>  </Form>
                     ) }

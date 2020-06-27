@@ -30,6 +30,7 @@ background: ${props => props.theme.colors.background};
 margin: 2em 1em 1em 0em;
 padding: 0.5em;
 border-radius: 30px !important;
+border: 0 !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
 text-align: center;
 
@@ -37,7 +38,7 @@ justify-content: space-evenly;
 `
 const RequestListContainer = styled.div`
 margin: auto;
-
+vertical-align: center;
 justify-content: space-evenly;
 `
 const CategoryMark = styled.div`

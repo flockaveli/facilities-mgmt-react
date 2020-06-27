@@ -26,14 +26,29 @@ const AssignRequest = () => {
 
     const { SelectedRequest } = context
     const [availableWorkers, setAvailableWorkers] = useState([])
+    const [workersAssignments, setWorkersAssignments] = useState([])
+
 
     let { _id } = useParams()
 
     useEffect(() => {
-        getWorkerDetails()
         getRequestDetail(_id)
-        return 
+        getWorkerDetails()
     }, [])
+
+    useEffect(() => {
+        getWorkerAssignments()
+    }, [availableWorkers])
+
+    const getWorkerAssignments = () => {
+        for (let i = 0; i < availableWorkers.length; i++) {
+            RequestDataService.getWorkload(availableWorkers[i]._id)
+                .then(response => {
+
+                    setWorkersAssignments([...workersAssignments, { _id: availableWorkers[i]._id, name: availableWorkers[i].name, assignedJobs: response.data[0].assignedJobs }])
+                })
+        }
+    }
 
     const getWorkerDetails = () => {
         AuthDataService.getWorkerList()
@@ -43,14 +58,13 @@ const AssignRequest = () => {
             })
             .catch(e => {
                 console.log(e);
-            })
+            });
     }
 
     const getRequestDetail = _id => {
         RequestDataService.getDetail(_id)
             .then(response => {
                 dispatch({ type: 'SELECTED_REQUEST', payload: response.data });
-                console.log(response.data);
             })
             .catch(e => {
                 console.log(e);
@@ -59,6 +73,25 @@ const AssignRequest = () => {
     const back = () => {
         history.goBack()
     }
+
+    const workerrs = workersAssignments.map((worker) => (<Row id={ worker.name }>
+        <Col>
+            <TeamWorker key={ worker._id }> { worker.name }    { worker.assignedJobs } Active Requests </TeamWorker>
+        </Col>
+        <Col>
+            <Field type='checkbox' name='workers' id={ worker._id } value={ worker._id }
+            // checked={ values.workers.includes(worker._id) } 
+            // onChange={ e => {
+            //     if (e.target.checked) arrayHelpers.push(worker._id);
+            //     else {
+            //         const idx = values.workers.indexOf(worker._id);
+            //         arrayHelpers.remove(idx);
+            //     }
+            // } } 
+            />
+        </Col></Row>
+    ))
+
 
     const validationSchema = Yup.object().shape({
         description: Yup.string()
@@ -88,6 +121,7 @@ const AssignRequest = () => {
                                 .catch(e => {
                                     console.log(e);
                                 })
+                            history.goBack()
                         }
                         catch (err) {
                             console.error('error', err)
@@ -105,25 +139,9 @@ const AssignRequest = () => {
                         <Form onSubmit={ handleSubmit } >
 
                             <h4>{ SelectedRequest.category } Team</h4>
-                            { availableWorkers && availableWorkers.map((worker) => (<Row id={ worker._id }>
-                                <Col>
-                                    <TeamWorker key={ worker._id }> { worker.email }  </TeamWorker>
-                                </Col>
-                                <Col>
-                                    <Field type='checkbox' name='workers' id={ worker._id } value={ worker._id }
-                                    // checked={ values.workers.includes(worker._id) } 
-                                    // onChange={ e => {
-                                    //     if (e.target.checked) arrayHelpers.push(worker._id);
-                                    //     else {
-                                    //         const idx = values.workers.indexOf(worker._id);
-                                    //         arrayHelpers.remove(idx);
-                                    //     }
-                                    // } } 
-                                    />
-                                </Col></Row>
-                            )) }
 
 
+                            { workerrs }
 
                             <Form.Group controlId="addMessageFormMessage">
                                 <Form.Label>Assignment Details</Form.Label>

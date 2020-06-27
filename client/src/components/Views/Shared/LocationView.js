@@ -4,14 +4,31 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const MapContainer = styled.div`
   border-width: 0;
-  border-radius: 50;
+  border-radius: 50%;
   margin: auto;
+overflow: hidden;
+
+object-fit: "cover";
+object-position: "center";
+padding: 0em -20em 0em -20em ;
+  width: 10em;
+  height: 10em;
+  box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
+
+
+  :hover {
+    width: 40em;
+  height: 40em;
+  
+  object-position: "center";
+  border-radius: 0;
+  }
 `;
 
 const containerStyle = {
     width: '40em',
     height: '40em',
-    borderRadius: 50
+    margin: 'auto'
 };
 
 export const LocationView = (props) => {

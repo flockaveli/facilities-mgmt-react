@@ -33,27 +33,14 @@ const AdminDashboardWrapper = styled(Container)`
 align-items: center;
 padding: 1em 1em;
 `
-const ListRequest = styled(Container)`
-background: ${props => props.theme.colors.background};
 
-margin: 2em 1em 1em 0em;
-border-radius: 30px !important;
-box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
-`
 const AdminDashboardDisplay = styled.div`
-
 margin: auto;
 `
 const FilterBar = styled.div`
-
-margin: 1em 0em 2em 3em;
-
-.Input {
-	margin: auto;
-}
-.Button {
-	margin: 3em 3em 0em 0em
-}
+margin-right: auto;
+margin-left: 3.5em;
+margin-top: 2em;
 `
 const CategoryButtonWrapper = styled(Container)`
 padding: 0.2em;
@@ -70,8 +57,9 @@ margin: 1em;
 background: transparent;
 padding: 0em 1em 0em 1em;
 text-align: center;
-box-shadow: 0px 0px 0px 0px #D1D9E6, 0px 0px 0px 0px #FFFFFF;
-
+box-shadow: 0px 0px 0px 0px #D1D9E6, 0px 0px 0px 0px #FFFFFF !important;
+:focus,
+:active,
 :hover{
     color: #666;
     background-color: #ecf0f3;
@@ -157,56 +145,52 @@ const AdminDashboard = () => {
 				<Row>
 					{ categories && categories.map((category, _id) => (
 						<Col>
-							<CategoryButton key={ _id } onClick={ () => setFilterCategory(category._id.category) }> <Row><CategoryMark category={ category._id.category } /></Row><Row> { category._id.category } </Row><Row>{ category.count } Active Requests</Row></CategoryButton>
+							<CategoryButton id='catbut' key={ _id } onClick={ () => setFilterCategory(category._id.category) }> <Row><CategoryMark category={ category._id.category } /></Row><Row> { category._id.category } </Row><Row>{ category.count } Active Requests</Row></CategoryButton>
 						</Col>
 					)) }
 				</Row>
 			</CategoryButtonWrapper>
 			<FilterBar>
-				<Row>
-					<Col>
-						<Form>
-							<Form.Row>
-								<Col>
-									<Form.Group >
-										<Form.Label>Keyword Search</Form.Label>
-										<Form.Control type='text'
-											value={ searchTerm }
-											className='center-block'
-											placeholder='Filter here…'
-											onChange={ searchInput }
-										/>
-									</Form.Group>
-								</Col><Col>
-									<Form.Group controlId="createRequestFormCategory">
-										<Form.Label>Priority</Form.Label>
-										<Form.Control as="select"
-											name="priorityFilterSelect"
-											value={ filterPriority }
-											onChange={ priorityInput }	>
-											<option defaultValue key={ 0 } value={ '' }>-</option>
-											{ prioritydropdown.map((category) => <option key={ category.value } value={ category.value }>{ category.display }</option>) }
-										</Form.Control>
-									</Form.Group>
-								</Col><Col>
-									<Form.Group controlId="createRequestFormCategory">
-										<Form.Label >Status</Form.Label>
-										<Form.Control as="select"
-											name="statusFilterInput"
-											value={ filterStatus }
-											onChange={ statusInput } >
-											<option selected key={ 0 } value={ '' }>-</option>
-											{ statusdropdown.map((category) => <option key={ category.value } value={ category.value }>{ category.display }</option>) }
-										</Form.Control>
-									</Form.Group>
-								</Col>
-								<Col>
-									<Button onClick={ clearFilters }>clear filters</Button>
-								</Col>
-							</Form.Row>
-						</Form>
-					</Col>
-				</Row>
+				<Form>
+					<Row>
+						<Col>
+							<Form.Group >
+								<Form.Label>Keyword Search</Form.Label>
+								<Form.Control type='text'
+									value={ searchTerm }
+									className='center-block'
+									placeholder='Filter here…'
+									onChange={ searchInput }
+								/>
+							</Form.Group>
+						</Col><Col>
+							<Form.Group controlId="createRequestFormCategory">
+								<Form.Label>Priority</Form.Label>
+								<Form.Control as="select"
+									name="priorityFilterSelect"
+									value={ filterPriority }
+									onChange={ priorityInput }	>
+									<option defaultValue key={ 0 } value={ '' }>-</option>
+									{ prioritydropdown.map((category) => <option key={ category.value } value={ category.value }>{ category.display }</option>) }
+								</Form.Control>
+							</Form.Group>
+						</Col><Col>
+							<Form.Group controlId="createRequestFormCategory">
+								<Form.Label >Status</Form.Label>
+								<Form.Control as="select"
+									name="statusFilterInput"
+									value={ filterStatus }
+									onChange={ statusInput } >
+									<option selected key={ 0 } value={ '' }>-</option>
+									{ statusdropdown.map((category) => <option key={ category.value } value={ category.value }>{ category.display }</option>) }
+								</Form.Control>
+							</Form.Group>
+						</Col>
+						<Col>
+							<Button onClick={ clearFilters }>clear filters</Button>
+						</Col>
+					</Row>
+				</Form>
 			</FilterBar>
 
 

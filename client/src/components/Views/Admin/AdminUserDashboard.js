@@ -11,12 +11,20 @@ import { useFmState, useFmDispatch } from '../../../services/fm-context'
 const AdminDashboardWrapper = styled(Container)`
 align-items: center;
 padding: 1em 1em;
+
+margin: auto;
 `
+
+
 const ListRequest = styled.button`
 background: ${props => props.theme.colors.background};
-margin: 2em;
-padding: 1em;
+
+padding: 1.25em;
 border-radius: 30px !important;
+margin: auto;
+margin-top: 2em;
+width: auto;
+border: 0 !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
 align-items: center;
 
@@ -27,13 +35,16 @@ align-items: center;
 margin: 2em 1em 2em;
 `
 const nameStyle = {
-	flex: 8
+	flex: 6,
+	width: 'auto'
 }
 const emailStyle = {
-	flex: 4
+	flex: 4,
+	width: 'auto'
 }
 const listStyle = {
-	justifyContent: 'space-between'
+	justifyContent: '',
+	width: 'auto'
 }
 
 
@@ -85,13 +96,11 @@ const AdminUserDashboard = () => {
 			{ users && users.map((user, _id) => (<Row>
 				<ListRequest style={ listStyle } onClick={ () => userPage(user._id) } key={ _id } value={ user._id }  >
 					<Row >
-						<Col style={ emailStyle }>{ user.name }
+						<Col style={ nameStyle }>{ user.name }
 						</Col>
 						<Col style={ nameStyle }>{ user.email }
 						</Col>
 						<Col style={ emailStyle }>{ user.type }
-						</Col>
-						<Col style={ emailStyle }>{ moment(user.updatedAt).format("L LT") }
 						</Col>
 						<Col style={ emailStyle }>{ (user.enabled) ? <span>Enabled</span> : <span>Disabled</span> }
 						</Col>

@@ -125,7 +125,6 @@ router.put('/priority/:_id', (req, res) => {
         })
 });
 
-
 //@route POST api/request/assign/_id
 //@desc Update a request with assignment details
 //@access admin
@@ -149,18 +148,20 @@ router.put('/assign/:_id', (req, res) => {
 //@route GET api/requests/workerjobcount
 //@desc GET sum of requests each worker has
 //@access Admin
-router.get('/workerjobcount', (req, res) => {
-    Request.aggregate([{
-        $unwind:
-            '$assignment.workers'
-    },
-    {
-        $group: {
-            _id: '$assignment.workers',
-            count: { $sum: 1 }
-        }
-    }])
-        .then(categoryDetails => res.json(categoryDetails))
+router.get('/workerjobcount/:_id', (req, res) => {
+    Request.aggregate([
+        {
+            $project: {
+                "isAssignedtoWorker": {
+                    $in: [[req.params._id], { "$ifNull": [['$assignment.workers'], []] }]
+                }
+            },
+
+        },
+        { $match: { 'isAssignedtoWorker': true } },
+        { $count: 'assignedJobs' }
+    ])
+        .then(response => res.json(response))
 });
 
 
@@ -180,8 +181,8 @@ router.get('/workerjobcount', (req, res) => {
 //@route GET api/requests/workersrequests
 //@desc GET all open requests assigned to logged in worker
 //@access Worker
-router.get('/workersrequests', (req, res) => {
-    Request.find({ 'assignment.workers': { $in: [req.body._id] }, status: { $ne: 'Closed' } },
+router.get('/workersrequests/:_id', (req, res) => {
+    Request.find({ 'assignment.workers': { $in: [req.params._id] }, status: { $ne: 'Closed' } },
         { name: 1, category: 1, status: 1, updatedAt: 1 })
         .sort({ updatedAt: -1 })
         .then(requests => res.json(requests))

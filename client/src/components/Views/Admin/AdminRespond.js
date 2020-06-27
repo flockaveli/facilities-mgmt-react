@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -36,6 +36,7 @@ const AdminRespond = () => {
 
 	const context = useFmState();
 	const dispatch = useFmDispatch();
+	const history = useHistory();
 
 
 	let { _id } = useParams()
@@ -80,7 +81,9 @@ const AdminRespond = () => {
 									if (result.status === 200) {
 										dispatch({
 											type: 'MESSAGE_ADDED'
+
 										})
+										history.goBack()
 									} else {
 										console.log('Error')
 									}
