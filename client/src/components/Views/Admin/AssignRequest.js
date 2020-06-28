@@ -40,16 +40,24 @@ const AssignRequest = () => {
         getWorkerAssignments()
     }, [availableWorkers])
 
+//iterating over the returned worker records and getting the number of requests assigned to each from db
     const getWorkerAssignments = () => {
         for (let i = 0; i < availableWorkers.length; i++) {
             RequestDataService.getWorkload(availableWorkers[i]._id)
                 .then(response => {
+                    //setting new array with aggregated worker info for use in frontend
+                    if (response.data[0] === undefined) {
+                        setWorkersAssignments(workersAssignments => [...workersAssignments, { _id: availableWorkers[i]._id, name: availableWorkers[i].name, assignedJobs: '0' }])
+                    }
+                    else {
+                        setWorkersAssignments(workersAssignments => [...workersAssignments, { _id: availableWorkers[i]._id, name: availableWorkers[i].name, assignedJobs: response.data[0].assignedJobs }])
 
-                    setWorkersAssignments([...workersAssignments, { _id: availableWorkers[i]._id, name: availableWorkers[i].name, assignedJobs: response.data[0].assignedJobs }])
+                    }
                 })
         }
     }
 
+//getting a list of workers from 'user' database
     const getWorkerDetails = () => {
         AuthDataService.getWorkerList()
             .then(response => {
@@ -70,27 +78,12 @@ const AssignRequest = () => {
                 console.log(e);
             })
     }
+    //function for back button
     const back = () => {
         history.goBack()
     }
 
-    const workerrs = workersAssignments.map((worker) => (<Row id={ worker.name }>
-        <Col>
-            <TeamWorker key={ worker._id }> { worker.name }    { worker.assignedJobs } Active Requests </TeamWorker>
-        </Col>
-        <Col>
-            <Field type='checkbox' name='workers' id={ worker._id } value={ worker._id }
-            // checked={ values.workers.includes(worker._id) } 
-            // onChange={ e => {
-            //     if (e.target.checked) arrayHelpers.push(worker._id);
-            //     else {
-            //         const idx = values.workers.indexOf(worker._id);
-            //         arrayHelpers.remove(idx);
-            //     }
-            // } } 
-            />
-        </Col></Row>
-    ))
+
 
 
     const validationSchema = Yup.object().shape({
@@ -141,7 +134,24 @@ const AssignRequest = () => {
                             <h4>{ SelectedRequest.category } Team</h4>
 
 
-                            { workerrs }
+                            { workersAssignments && workersAssignments.map((worker) => (<Row key={ worker.name } id={ worker.name }>
+
+                                <Col>
+                                    <TeamWorker key={ worker._id }> { worker.name }    { worker.assignedJobs } Active Requests </TeamWorker>
+                                </Col>
+                                <Col>
+                                    <Field type='checkbox' key={ worker._id } name='workers' id={ worker._id } value={ worker._id }
+                                    // checked={ values.workers.includes(worker._id) } 
+                                    // onChange={ e => {
+                                    //     if (e.target.checked) arrayHelpers.push(worker._id);
+                                    //     else {
+                                    //         const idx = values.workers.indexOf(worker._id);
+                                    //         arrayHelpers.remove(idx);
+                                    //     }
+                                    // } } 
+                                    />
+                                </Col></Row>
+                            )) }
 
                             <Form.Group controlId="addMessageFormMessage">
                                 <Form.Label>Assignment Details</Form.Label>
