@@ -35,10 +35,6 @@ const WorkerRequestDetail = () => {
       })
   }
 
-  const changePriority = (e) => {
-    RequestDataService.changePriority(SelectedRequest._id, { priority: e.target.value })
-  }
-
   const logJob = () => {
     history.push(`/logjob/${SelectedRequest._id}`)
   }
@@ -66,12 +62,7 @@ const WorkerRequestDetail = () => {
           <Row><Col>Category:</Col><Col> { SelectedRequest.category }</Col></Row>
           <Row><Col>Status:</Col><Col> { SelectedRequest.status }</Col></Row>
           <Row><Col>Requested by:</Col><Col>{ SelectedRequest.requester.name }</Col></Row>
-          <Row><Col>Priority:</Col><Col><Form.Control as="select" id="dro" title='priority' onChange={ changePriority } value={ SelectedRequest.priority } >
-            <option value={ '-' }>-</option>
-            <option value={ "Low" }>Low</option>
-            <option value={ "Medium" }>Medium</option>
-            <option value={ "High" }>High</option>
-          </Form.Control></Col>
+          <Row><Col>Priority:</Col><Col>{SelectedRequest.priority }</Col>
           </Row>
         </Col>
       </Row>

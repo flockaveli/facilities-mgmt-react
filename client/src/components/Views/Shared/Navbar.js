@@ -10,12 +10,11 @@ import { useFmState, useFmDispatch, hasType } from '../../../services/fm-context
 
 const Nav = styled(Navbar)`
 background-color: #ECF0F3;
-padding: .5em;
+margin: 0 0 2em 0;
 display: flex;
 flex-direction: horizontal;
 justify-content: space-between;
 box-shadow: 18px 18px 30px 0px #D1D9E6;
-margin: 0 0 2em 0;
 `;
 
 const NavLink = styled.div`

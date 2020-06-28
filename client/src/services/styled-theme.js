@@ -5,12 +5,28 @@ import styled, { ThemeProvider, createGlobalStyle } from 'styled-components/macr
 export const GlobalStyle = createGlobalStyle`
 
 html {
-background: '#ECF0F3';
+width: 100%;
+  height: 100%;
+  
+  background: #ECF0F3;
+  font-size: 17px;
+  
 }
 body {
     font-family: 'Roboto', sans-serif;
-    background: '#ECF0F3';
-
+    background: #ECF0F3;
+    
+width: 100%;
+  height: 100%;
+  
+    font-family: ${props => props.theme.fontFamily};
+    margin: 0 auto;
+  
+}
+#root, .App {
+  height: 100%;
+  
+  background-color: #ECF0F3;
 }
 
 a {
@@ -46,9 +62,6 @@ label.form-label {
     margin-top: 35px;
 }
 }
-html {
-  font-size: 17px;
-}
 @media (max-width: 900px) {
   html { font-size: 15px; }
 }
@@ -71,10 +84,6 @@ h4 {
   font-size: 2rem;
   margin: 1em;
 }
-  body {
-    font-family: ${props => props.theme.fontFamily};
-    margin: 0 auto;
-  }
 
   .btn,
   .btn-primary,

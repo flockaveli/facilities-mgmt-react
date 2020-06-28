@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import moment from 'moment'
 import RequestDataService from "../../../services/RequestService";
-import { useFmState, useFmDispatch } from '../../../services/fm-context'
+import { hasType, useFmState, useFmDispatch } from '../../../services/fm-context'
 import Pagination from './Pagination.js'
 
 const getColor = (props) => {
@@ -63,6 +63,10 @@ const RequestList = ({ requests, isFetching }) => {
         return <Spinner animation="border" variant="primary" />
     }
 
+    const state = useFmState()
+
+    const { user } = state
+
     const history = useHistory()
     const itemsPerPage = 2
     const [currentPage, setCurrentPage] = useState(1);
@@ -85,6 +89,12 @@ const RequestList = ({ requests, isFetching }) => {
         setCurrentPage(Math.max(currentPage - 1, 1));
     }
 
+    const detailPage = (_id) => {
+        { hasType(user, ['Admin']) && history.push(`/requests/${_id}`) }
+        { hasType(user, ['Worker']) && history.push(`/assignedrequests/${_id}`) }
+        { hasType(user, ['Requester']) && history.push(`/myrequests/${_id}`) }
+    }
+
     return (
         <>
             <Row>
@@ -105,15 +115,15 @@ const RequestList = ({ requests, isFetching }) => {
 
                 <Row>
                     <Col>
-                        <ListRequest key={ request._id } onClick={ () => history.push(`/requests/${request._id}`) } >
+                        <ListRequest key={ request._id } onClick={ () => { detailPage(request._id) } } >
                             <Row>
                                 <Col><CategoryMark category={ request.category } /></Col>
                                 <Col> { request.name }
                                 </Col>
                                 <Col>{ request.category }
                                 </Col>
-                                <Col>{ request.requester.name }
-                                </Col>
+                                { request.requester && <Col> { request.requester.name }
+                                </Col> }
                                 <Col>{ moment(request.updatedAt).format("L LT") }
                                 </Col>
                                 <Col>{ request.status }

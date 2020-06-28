@@ -11,7 +11,9 @@ import { useFmState, useFmDispatch } from '../../../services/fm-context'
 const AdminDashboardWrapper = styled(Container)`
 align-items: center;
 padding: 1em 1em;
+height: 100;
 
+background: ${props => props.theme.colors.background};
 margin: auto;
 `
 

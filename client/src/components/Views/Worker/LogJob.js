@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styled from 'styled-components/macro';
 import { Formik, ErrorMessage } from 'formik';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Container, Row, Button, Col, Form, DropdownButton, Dropdown } from 'react-bootstrap';
 
 import StyledDropzone from '../Shared/StyledDropzone.js';
 
-import requestDataService from "../../../services/RequestService";
+import RequestDataService from "../../../services/RequestService";
 import { useFmState, useFmDispatch } from '../../../services/fm-context'
 
 
@@ -47,10 +47,32 @@ const LogJob = () => {
         history.goBack()
     }
 
-    const { user, selectedRequest } = context;
+
+
+    let { _id } = useParams()
+
+    useEffect(() => {
+        getRequestDetail(_id)
+    }, [])
+
+    const getRequestDetail = _id => {
+        RequestDataService.getDetail(_id)
+            .then(response => {
+                dispatch({ type: 'SELECTED_REQUEST', payload: response.data });
+                console.log(response.data);
+            })
+            .catch(e => {
+                console.log(e);
+            })
+    }
+
+    const { user, SelectedRequest } = context;
+
+
+
 
     const validationSchema = Yup.object().shape({
-        description: Yup.string()
+        message: Yup.string()
             .max(100, "Message must be less than 300 characters")
             .required("Message text is required"),
         photos: Yup.array().of(Yup.mixed()
@@ -64,9 +86,10 @@ const LogJob = () => {
                 "Unsupported Format",
                 value => value && SUPPORTED_FORMATS.includes(value.type)
             )
-        ),
+        )
+            .nullable(),
         resolution: Yup.string()
-            .required("Please select a category for your request"),
+            .required("Please select a response type for your log"),
     });
 
     return (
@@ -88,17 +111,19 @@ const LogJob = () => {
                             if (values.resolution === 'Actioned') {
                                 messageData.append('status', 'Pending Review')
                             } else { messageData.append('status', 'Unresolved') }
+
                             messageData.append('message', values.message)
                             messageData.append('sender', user.name)
                             for (var x = 0; x < values.photos.length; x++) {
                                 messageData.append('photos', values.photos[x])
                             }
-                            requestDataService.logJob(selectedRequest._id, messageData)
+                            RequestDataService.logJob(SelectedRequest._id, messageData)
                                 .then(result => {
                                     if (result.status === 200) {
                                         dispatch({
                                             type: 'JOB_LOGGED'
                                         })
+                                        history.goBack()
                                     } else {
                                         console.log('Error')
                                     }
@@ -120,15 +145,15 @@ const LogJob = () => {
                             <Form.Group>
                                 <Form.Label>Resolution status</Form.Label>
                                 <Form.Control as="select"
-                                    name="category"
+                                    name="resolution"
                                     onChange={ handleChange }
-                                    value={ values.category }>
-                                    <option selected key={ 0 } value={ null }></option>
+                                    value={ values.resolution }>
+                                    <option defaultvalue key={ 0 } value={ null }></option>
                                     <option key='Resolved' value='Actioned'>Actioned</option>
                                     <option key='Unresolved' value='Unresolved'>Unable to resolve</option>
                                 </Form.Control>
                                 { touched.resolution && errors.resolution ? (
-                                    <ErrorMessage>{ errors.category }</ErrorMessage>
+                                    <ErrorMessage>{ errors.resolution }</ErrorMessage>
                                 ) : null }
                             </Form.Group>
                             <Form.Group>

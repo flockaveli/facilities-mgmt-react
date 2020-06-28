@@ -41,17 +41,27 @@ width: 1.5em;
 border-radius: 50%;
 `
 
+
+
 const AssignmentDetails = ({ message }) => {
+
+
 
     return (
         <div>
             { message &&
                 <MessageContainer key={ message }  >
                     <Row>
-                        <Col>{ message.assignmentMessage }
+                        <Col>
+                            Workers: { message.workers && message.workers.map((worker) => <span>{ worker.name } </span>) }
                         </Col>
                         <Col>Assigned: { moment(message.updatedAt).format("L LT") }
                         </Col>
+                    </Row>
+
+                    <Row>
+                        { message.assignmentMessage }
+
                     </Row>
                 </MessageContainer>
             }

@@ -110,7 +110,6 @@ const AdminDashboard = () => {
 	const statusdropdown = [{ "value": 'New', "display": 'New' }, { "value": 'Awaiting Info', "display": 'Awaiting Info' }, { "value": 'Delayed', "display": 'Delayed' }, { "value": 'Assigned', "display": 'Assigned' }, { "value": 'Unresolved', "display": 'Unresolved' }, { "value": 'Pending Review', "display": 'Pending Review' }]
 	const prioritydropdown = [{ "value": "Low", "display": "Low" }, { "value": "Medium", "display": "Medium" }, { "value": "High", "display": "High" }]
 
-	//setting filter using local state
 	//lifecycle hook to retrieve latest data upon component rendering
 	useEffect(() => {
 		getAllRequests();

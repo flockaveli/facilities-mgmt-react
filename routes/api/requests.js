@@ -39,7 +39,7 @@ router.get('/admin', (req, res) => {
 //@access Admin
 router.get('/archive', (req, res) => {
     Request.find({ status: 'Closed' },
-        { name: 1, category: 1, status: 1, requester: 1, updatedAt: 1 })
+        { name: 1, category: 1, status: 1, description: 1, requester: 1, updatedAt: 1 })
         .sort({ updatedAt: -1 })
         .then(requests => res.json(requests))
 });
@@ -48,12 +48,16 @@ router.get('/archive', (req, res) => {
 //@desc GET sum of requests in each category for category bar
 //@access Admin
 router.get('/categories', (req, res) => {
-    Request.aggregate([{
-        $group: {
-            _id: { category: '$category' },
-            count: { $sum: 1 }
+    Request.aggregate([
+        { $match: { status: { $ne: 'Closed' } } },
+        {
+            $group: {
+                _id: { category: '$category' },
+                count: { $sum: 1 }
+            }
         }
-    }])
+
+    ])
         .then(categoryDetails => res.json(categoryDetails))
 });
 
@@ -167,23 +171,15 @@ router.get('/workerjobcount/:_id', (req, res) => {
 
 
 
-
-
-
-
-
-
 /// ** WORKER API CALLS **
-
-
 
 
 //@route GET api/requests/workersrequests
 //@desc GET all open requests assigned to logged in worker
 //@access Worker
 router.get('/workersrequests/:_id', (req, res) => {
-    Request.find({ 'assignment.workers': { $in: [req.params._id] }, status: { $ne: 'Closed' } },
-        { name: 1, category: 1, status: 1, updatedAt: 1 })
+    Request.find({ 'assignment.workers': { $in: [req.params._id] }, status: 'Assigned' },
+        { name: 1, category: 1, description: 1, status: 1, priority: 1, updatedAt: 1 })
         .sort({ updatedAt: -1 })
         .then(requests => res.json(requests))
 });
@@ -193,10 +189,37 @@ router.get('/workersrequests/:_id', (req, res) => {
 //@access Worker
 router.get('/workerarchive', (req, res) => {
     Request.find(
-        { 'assignment.workers': { $in: [req.body._id] }, status: 'Closed' },
-        { name: 1, category: 1, status: 1, updatedAt: 1 }
+        { 'assignment.workers': { $in: [req.body._id] }, status: { $ne: 'Assigned ' } },
+        { name: 1, category: 1, description: 1, status: 1, updatedAt: 1 }
     )
         .sort({ updatedAt: -1 })
+        .then(requests => res.json(requests))
+});
+
+
+//@route GET api/requests/workersarchive
+//@desc GET category details associated with logged in worker
+//@access Worker
+router.get('/workerscategories/:_id', (req, res) => {
+    Request.aggregate([
+        {
+            $project: {
+                "isAssignedtoWorker": {
+                    $in: [[req.params._id], { "$ifNull": [['$assignment.workers'], []] }]
+                },
+                'category': 1,
+                'status': 1,
+            },
+
+        },
+        { $match: { 'isAssignedtoWorker': true, status: 'Assigned' } },
+        {
+            $group: {
+                _id: { category: '$category' },
+                count: { $sum: 1 }
+            }
+        }
+    ])
         .then(requests => res.json(requests))
 });
 
@@ -227,13 +250,6 @@ router.put('/logJob/:_id', upload.array('photos', 6), (req, res) => {
             })
         })
 });
-
-
-
-
-
-
-
 
 
 /// ** REQUESTER API CALLS **

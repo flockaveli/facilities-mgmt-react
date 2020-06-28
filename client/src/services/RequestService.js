@@ -43,8 +43,12 @@ const getWorkersRequests = _id => {
   return http.get(`/requests/workersrequests/${_id}`);
 };
 
+const getWorkerCategoryCount = _id => {
+  return http.get(`/requests/workerscategories/${_id}`);
+};
+
 const logJob = (_id, data) => {
-  return http.put(`/requests/respond/${_id}`, data);
+  return http.put(`/requests/logjob/${_id}`, data);
 };
 
 
@@ -70,6 +74,7 @@ export default {
   adminRespond,
   assignRequest,
   getCategoryCount,
+  getWorkerCategoryCount,
   getWorkload,
   changePriority,
   closeRequest,

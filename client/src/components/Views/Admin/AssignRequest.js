@@ -40,7 +40,7 @@ const AssignRequest = () => {
         getWorkerAssignments()
     }, [availableWorkers])
 
-//iterating over the returned worker records and getting the number of requests assigned to each from db
+    //iterating over the returned worker records and getting the number of requests assigned to each from db
     const getWorkerAssignments = () => {
         for (let i = 0; i < availableWorkers.length; i++) {
             RequestDataService.getWorkload(availableWorkers[i]._id)
@@ -57,7 +57,7 @@ const AssignRequest = () => {
         }
     }
 
-//getting a list of workers from 'user' database
+    //getting a list of workers from 'user' database
     const getWorkerDetails = () => {
         AuthDataService.getWorkerList()
             .then(response => {
@@ -95,89 +95,93 @@ const AssignRequest = () => {
 
     return (
         <div>
-            <Formik
-                initialValues={ {
-                    assignmentMessage: "",
-                    workers: [],
-                } }
-                validationSchema={ validationSchema }
-                onSubmit={
-                    (values, { setSubmitting }) => {
-                        setSubmitting(true);
-                        try {
+            <Row>
+                <Button onClick={ back }>Back</Button>
+            </Row>
+            <Row>
+                <Formik
+                    initialValues={ {
+                        assignmentMessage: "",
+                        workers: [],
+                    } }
+                    validationSchema={ validationSchema }
+                    onSubmit={
+                        (values, { setSubmitting }) => {
+                            setSubmitting(true);
+                            try {
 
 
-                            RequestDataService.assignRequest(_id, values)
-                                .then(response => {
-                                    console.log(response.data);
-                                })
-                                .catch(e => {
-                                    console.log(e);
-                                })
-                            history.goBack()
-                        }
-                        catch (err) {
-                            console.error('error', err)
-                        }
-                    } }>
-                { ({ values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting,
-                    setFieldValue
-                }) => (
-                        <Form onSubmit={ handleSubmit } >
+                                RequestDataService.assignRequest(_id, values)
+                                    .then(response => {
+                                        console.log(response.data);
+                                    })
+                                    .catch(e => {
+                                        console.log(e);
+                                    })
+                                history.goBack()
+                            }
+                            catch (err) {
+                                console.error('error', err)
+                            }
+                        } }>
+                    { ({ values,
+                        errors,
+                        touched,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        isSubmitting,
+                        setFieldValue
+                    }) => (
+                            <Form onSubmit={ handleSubmit } >
 
-                            <h4>{ SelectedRequest.category } Team</h4>
+                                <h4>{ SelectedRequest.category } Team</h4>
 
 
-                            { workersAssignments && workersAssignments.map((worker) => (<Row key={ worker.name } id={ worker.name }>
+                                { workersAssignments && workersAssignments.map((worker) => (<Row key={ worker.name } id={ worker.name }>
 
-                                <Col>
-                                    <TeamWorker key={ worker._id }> { worker.name }    { worker.assignedJobs } Active Requests </TeamWorker>
-                                </Col>
-                                <Col>
-                                    <Field type='checkbox' key={ worker._id } name='workers' id={ worker._id } value={ worker._id }
-                                    // checked={ values.workers.includes(worker._id) } 
-                                    // onChange={ e => {
-                                    //     if (e.target.checked) arrayHelpers.push(worker._id);
-                                    //     else {
-                                    //         const idx = values.workers.indexOf(worker._id);
-                                    //         arrayHelpers.remove(idx);
-                                    //     }
-                                    // } } 
-                                    />
-                                </Col></Row>
-                            )) }
+                                    <Col>
+                                        <TeamWorker key={ worker._id }> { worker.name }    { worker.assignedJobs } Active Requests </TeamWorker>
+                                    </Col>
+                                    <Col>
+                                        <Field type='checkbox' key={ worker._id } name='workers' id={ worker._id } value={ worker._id }
+                                        // checked={ values.workers.includes(worker._id) } 
+                                        // onChange={ e => {
+                                        //     if (e.target.checked) arrayHelpers.push(worker._id);
+                                        //     else {
+                                        //         const idx = values.workers.indexOf(worker._id);
+                                        //         arrayHelpers.remove(idx);
+                                        //     }
+                                        // } } 
+                                        />
+                                    </Col></Row>
+                                )) }
 
-                            <Form.Group controlId="addMessageFormMessage">
-                                <Form.Label>Assignment Details</Form.Label>
-                                <Form.Control
-                                    as="textarea"
-                                    rows="3"
-                                    type="text"
-                                    name="assignmentMessage"
-                                    onChange={ handleChange }
-                                    onBlur={ handleBlur }
-                                    value={ values.message }
-                                    placeholder="Add message for worker" />
-                                { touched.message && errors.message ? (
-                                    <div className="error-message">{ errors.assignmentMessage }</div>
-                                ) : null }
-                            </Form.Group>
+                                <Form.Group controlId="addMessageFormMessage">
+                                    <Form.Label>Assignment Details</Form.Label>
+                                    <Form.Control
+                                        as="textarea"
+                                        rows="3"
+                                        type="text"
+                                        name="assignmentMessage"
+                                        onChange={ handleChange }
+                                        onBlur={ handleBlur }
+                                        value={ values.message }
+                                        placeholder="Add message for worker" />
+                                    { touched.message && errors.message ? (
+                                        <div className="error-message">{ errors.assignmentMessage }</div>
+                                    ) : null }
+                                </Form.Group>
 
-                            <Button
-                                disabled={ isSubmitting }
-                                type="submit">
-                                Submit Request
+                                <Button
+                                    disabled={ isSubmitting }
+                                    type="submit">
+                                    Submit Request
 							</Button>
-                        </Form >
-                    ) }
-            </Formik>
-            <Button onClick={ back }>Back</Button>
+                            </Form >
+                        ) }
+                </Formik>
+            </Row>
 
 
 

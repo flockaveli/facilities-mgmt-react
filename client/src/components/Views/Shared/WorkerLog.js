@@ -30,6 +30,7 @@ const MessageContainer = styled(Container)`
 background: ${props => props.theme.colors.background};
 margin: 2em 1em 1em 0em;
 padding: 0.5em;
+height: auto;
 border-radius: 30px !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
 `
@@ -46,29 +47,22 @@ const Message = ({ message }) => {
     return (
         <div>
             { message &&
-                <>
+                <MessageContainer key={ message }  >
                     <Row>
                         <Col>
-                            <MessageContainer key={ message }  >
-                                <Row>
-                                    <Col>{ message.sender }
-                                    </Col>
-                                    <Col>{ message.resolution }
-                                    </Col>
-                                    <Col>{ moment(message.updatedAt).format("L LT") }
-                                    </Col>
-                                    </Row><Row>
-                                    <Col>{ message.message }
-                                    </Col>
-                                    </Row>
-                                    <Row>
-                                    { message.messagePhotos && message.messagePhotos.map((photo) => <UploadedImage props={ photo } />) }
-                                </Row>
-                            </MessageContainer>
+                            <Row>{ message.sender }</Row>
+                            <Row>{ message.resolution }</Row>
                         </Col>
-
+                        <Col>{ moment(message.updatedAt).format("L LT") }
+                        </Col>
+                    </Row><Row>
+                        <Col>{ message.message }
+                        </Col>
                     </Row>
-                </>
+                    <Row>
+                        { message.messagePhotos && message.messagePhotos.map((photo) => <UploadedImage props={ photo } />) }
+                    </Row>
+                </MessageContainer>
             }
         </div>
     )

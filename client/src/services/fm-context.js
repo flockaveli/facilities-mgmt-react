@@ -148,6 +148,10 @@ export const FmReducer = (state, action) => {
       return {
         ...state
       };
+    case "JOB_LOGGED":
+      return {
+        ...state
+      };
     default:
       throw new Error(`Unhandled action type: ${action.type}`)
   }

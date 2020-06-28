@@ -3,7 +3,8 @@ import styled from 'styled-components/macro';
 import { Switch, Route } from 'react-router-dom'
 import { hasType, useFmState, useFmDispatch } from './services/fm-context'
 import { StyleProvider, GlobalStyle } from './services/styled-theme'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import AdminRequestDetail from './components/Views/Admin/AdminRequestDetail'
 import AdminUserDetail from './components/Views/Admin/AdminUserDetail'
@@ -32,12 +33,13 @@ import Logout from './components/Views/Shared/Logout'
 import FmNav from './components/Views/Shared/Navbar'
 
 
-const MainWrapper = styled.div`
+const MainWrapper = styled(Container)`
 background: ${props => props.theme.colors.background};
+margin: 0 auto;
+padding: 0;
 
-background: '#ECF0F3';
-margin: 0;
-height: 100%;
+width: 100;
+  height: 100;
 `
 
 function App() {
@@ -48,7 +50,7 @@ function App() {
   return (
     <StyleProvider>
       <GlobalStyle />
-      <MainWrapper >
+      <MainWrapper fluid >
         <FmNav />
         <div>
           <Switch>
