@@ -82,7 +82,7 @@ h3 {
   margin: 0.75em;
 }
 h4 {
-  font-size: 1.4rem;
+  font-size: 1.4rem; 
   margin: 0.75em;
 }
 
