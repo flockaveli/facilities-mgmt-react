@@ -12,7 +12,6 @@ const DashboardWrapper = styled(Container)`
 align-items: center;
 padding: 1em 1em;
 text-align: center;
-margin: auto;
 `
 const ListRequest = styled(Button)`
 background: ${props => props.theme.colors.background};
@@ -22,8 +21,6 @@ border: 0 !important;
 border-radius: 30px !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
 text-align: center;
-margin: auto;
-margin: auto;
 
 `
 const nameStyle = {
