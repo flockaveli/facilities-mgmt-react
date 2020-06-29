@@ -94,6 +94,9 @@ const LogJob = () => {
 
     return (
         <CONTAINER>
+            <Button
+                onClick={ back }
+            >
             <Formik
                 initialValues={ {
                     message: "",
@@ -187,9 +190,7 @@ const LogJob = () => {
                     ) }
             </Formik>
 
-            <Button
-                onClick={ back }
-            >
+            
                 Back
 							</Button>
         </CONTAINER>

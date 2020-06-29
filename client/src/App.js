@@ -11,7 +11,6 @@ import AdminUserDetail from './components/Views/Admin/AdminUserDetail'
 import AdminDashboard from './components/Views/Admin/AdminDashboard'
 import AdminUserDashboard from './components/Views/Admin/AdminUserDashboard'
 import AdminWorkerDashboard from './components/Views/Admin/AdminWorkerDashboard'
-import UpdateRequest from './components/Views/Admin/AdminUpdateRequest'
 import AssignRequest from './components/Views/Admin/AssignRequest'
 import AdminRespond from './components/Views/Admin/AdminRespond'
 import AdminArchive from './components/Views/Admin/AdminArchive'
@@ -73,7 +72,6 @@ function App() {
             { hasType(user, ['Admin']) && <Route path='/workers' component={ AdminWorkerDashboard } /> }
             { hasType(user, ['Admin']) && <Route path="/userdetail/:_id" component={ AdminUserDetail } /> }
             { hasType(user, ['Admin']) && <Route path="/requests/:_id" component={ AdminRequestDetail } /> }
-            { hasType(user, ['Admin']) && <Route path="/moderate/:_id" component={ UpdateRequest } /> }
             { hasType(user, ['Admin']) && <Route path="/assign/:_id" component={ AssignRequest } /> }
             { hasType(user, ['Admin']) && <Route path="/respond/:_id" component={ AdminRespond } /> }
 

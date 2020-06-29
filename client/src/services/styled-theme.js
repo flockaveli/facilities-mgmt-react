@@ -52,6 +52,7 @@ a:hover {
 }
 
 label.form-label {
+  margin: 0.5em;
     font-size: 20px;
 }
  
@@ -70,19 +71,19 @@ label.form-label {
 }
 h1 {
   font-size: 3rem;
-  padding: 0.5em;
+  padding: 0.75em;
 }
 h2 {
   font-size: 2.5rem;
-  margin: 1em;
+  margin: 0.75em;
 }
 h3 {
   font-size: 2rem;
-  margin: 1em;
+  margin: 0.75em;
 }
 h4 {
-  font-size: 2rem;
-  margin: 1em;
+  font-size: 1.4rem;
+  margin: 0.75em;
 }
 
   .btn,
@@ -94,6 +95,7 @@ h4 {
     border: 0 !important;
     background-color: #ecf0f3 !important;
     border-color: #ecf0f3;
+    margin: 0.75em !important;
 
     :focus,
 :active,

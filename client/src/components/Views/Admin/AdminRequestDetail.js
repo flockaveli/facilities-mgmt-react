@@ -94,15 +94,15 @@ const AdminRequestDetail = () => {
         </Col>
       </Row>
       <Row>
-        { SelectedRequest.photos && <> <Row><h4>Images</h4></Row> { SelectedRequest.photos.map((photo) => <Col><UploadedImage props={ photo } /></Col>) } </> }
+        { SelectedRequest.photos ? <> <Row><h4>Images</h4></Row> { SelectedRequest.photos.map((photo) => <Col><UploadedImage props={ photo } /></Col>) } </> : null }
       </Row>
       { SelectedRequest.messages && <> <Row><h4>Messages</h4></Row> { SelectedRequest.messages.map((message) => <Row><Col> <Message message={ message } key={ message } /></Col></Row>) } </> }
-      <Row>
-        { SelectedRequest.assignment ? <> <Row><h4>Assignment</h4></Row> <Row> <AssignmentDetails message={ SelectedRequest.assignment } /></Row> </> : null }
-      </Row>
-      <Row>
-        { SelectedRequest.workerLog.message && <>  <h4>Workers Log</h4> <Row><WorkerLog message={ SelectedRequest.workerLog } /></Row> </> }
-      </Row>
+
+      { SelectedRequest.assignment ? <> <Row><h4>Assignment</h4></Row> <Row> <AssignmentDetails message={ SelectedRequest.assignment } /></Row> </> : null }
+
+      { SelectedRequest.workerLog.message && <>
+        <Row> <h4>Workers Log</h4> </Row><Row><WorkerLog message={ SelectedRequest.workerLog } /></Row> </> }
+
 
       <Row>
 

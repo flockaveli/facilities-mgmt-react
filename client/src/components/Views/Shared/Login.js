@@ -45,6 +45,7 @@ const validationSchema = Yup.object().shape({
         .email("Please enter a valid email address")
         .max(30, "Email must be less than 30 characters")
         .required("Email is required")
+        .test('Unitec', 'A Unitec email address is required', function (email) { return email.includes('unitec.ac.nz') })
 });
 
 const Login = () => {

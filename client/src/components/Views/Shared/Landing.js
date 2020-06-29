@@ -23,8 +23,16 @@ const Landing = () => {
             { hasType(user, ['Requester']) && (<Redirect to="/requester" />) }
             { hasType(user, ['Admin']) && (<Redirect to="/admin" />) }
             <LandingBody>
-                <div>Welcome to the Unitec Facilities Management Service Request App</div><p>
-                    <div>To get started please create an account</div></p></LandingBody>
+                <div>Welcome to the Unitec Facilities Management Service Request App</div>
+
+
+                <div><p>To get started please create an account</p></div>
+                <div><p>Or for testing, please log in with one of the following:</p></div>
+                <div><p>Admin - email: admin@unitec.ac.nz password: admin</p></div>
+                <div><p>Worker - email: worker@unitec.ac.nz password: worker</p></div>
+                <div><p>Requester - email: requester@unitec.ac.nz password: requester</p></div>
+
+            </LandingBody>
         </>)
 
 }

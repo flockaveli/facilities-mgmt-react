@@ -56,7 +56,7 @@ const RegisterUser = () => {
             .required("Please enter your name"),
         password: Yup.string()
             .min(5, "Password must be at least 5 characters")
-            .max(25, "Password can't be longer than 20 characters")
+            .max(25, "Password can't be longer than 25 characters")
             .required("Please enter password"),
         email: Yup.string()
             .email("Please enter a valid email address")
@@ -94,6 +94,7 @@ const RegisterUser = () => {
                                     localStorage.setItem("token", token);
                                 } else {
                                     console.log('Error')
+                                    history.push('/registeruser')
                                 }
                             }).catch(e => {
                                 console.log(e)

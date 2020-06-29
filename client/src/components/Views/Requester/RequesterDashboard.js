@@ -14,19 +14,30 @@ padding: 1em 1em;
 text-align: center;
 margin: auto;
 `
-const ListRequest = styled.div`
+const ListRequest = styled(Button)`
 background: ${props => props.theme.colors.background};
 padding: 1em;
 margin: 3em 3em 3em 3em;
-border: 0;
+border: 0 !important;
 border-radius: 30px !important;
 box-shadow: 18px 18px 30px 0px #D1D9E6, -18px -18px 30px 0px #FFFFFF;
 text-align: center;
 margin: auto;
-
-
+margin: auto;
 
 `
+const nameStyle = {
+	flex: 6,
+	width: 'auto'
+}
+const emailStyle = {
+	flex: 4,
+	width: 'auto'
+}
+const listStyle = {
+	width: '-webkit-fill-available'
+}
+
 const DashboardDisplay = styled.div`
 margin: auto;
 `
@@ -90,9 +101,9 @@ const RequesterDashboard = () => {
 
 			{ currentData && currentData.map((request) => (
 				<Row>
-					<ListRequest key={ request._id }>
+					<ListRequest onClick={ () => history.push(`/myrequests/${request._id}`) } key={ request._id } style={ listStyle }>
 						<Row>
-							<Col><Button onClick={ () => history.push(`/myrequests/${request._id}`) } >{ request.name }</Button>
+							<Col>{ request.name }
 							</Col>
 							<Col>{ request.category }
 							</Col>

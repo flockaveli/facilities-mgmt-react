@@ -21,7 +21,7 @@ margin: auto;
 const ListRequest = styled.button`
 background: ${props => props.theme.colors.background};
 
-padding: 1.25em;
+padding: 1.5em;
 border-radius: 30px !important;
 margin: auto;
 margin-top: 2em;
@@ -45,8 +45,7 @@ const emailStyle = {
 	width: 'auto'
 }
 const listStyle = {
-	justifyContent: '',
-	width: 'auto'
+	width: '-webkit-fill-available'
 }
 
 

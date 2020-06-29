@@ -9,9 +9,6 @@ import { Container, Row, Button, Col, Form, DropdownButton, Dropdown } from 'rea
 import RequestDataService from "../../../services/RequestService";
 import { useFmState, useFmDispatch } from '../../../services/fm-context'
 
-
-
-
 const CONTAINER = styled.div`
 background: ${props => props.theme.colors.background};
   height: auto;
@@ -67,6 +64,7 @@ const AdminRespond = () => {
 
 	return (
 		<CONTAINER>
+			<Button onClick={ () => { history.goBack() } }>Back</Button>
 			<Formik
 				initialValues={ {
 					description: ""
