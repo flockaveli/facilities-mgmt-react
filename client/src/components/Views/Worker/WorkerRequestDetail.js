@@ -75,17 +75,13 @@ const WorkerRequestDetail = () => {
 
 
       <Row>
-        { SelectedRequest.photos && SelectedRequest.photos.map((photo) => <Col><UploadedImage props={ photo } /></Col>) }
+        { SelectedRequest.photos[0] ? <> <Row><h4>Images</h4></Row> { SelectedRequest.photos.map((photo) => <Col><UploadedImage props={ photo } /></Col>) } </> : null }
       </Row>
+      { SelectedRequest.messages[0] ? <> <Row><h4>Messages</h4></Row> { SelectedRequest.messages.map((message) => <Row><Col> <Message message={ message } key={ message } /></Col></Row>) } </> : null }
 
-      { SelectedRequest.messages && SelectedRequest.messages.map((message) => <Row><Col> <Message message={ message } key={ message } /></Col></Row>) }
+      { SelectedRequest.assignment.assignmentMessage ? <> <Row><h4>Assignment</h4></Row> <Row> <AssignmentDetails assignment={ SelectedRequest.assignment } /></Row> </> : null }
 
-
-      { SelectedRequest.assignment.assignmentMessage && <Row><h4>Assignment Details</h4></Row> && SelectedRequest.assignment.assignmentMessage && <Row><AssignmentDetails message={ SelectedRequest.assignment } /></Row> }
-
-
-      { SelectedRequest.workerLog.message && <Row><h4>Workers Log</h4></Row> && <Row><WorkerLog message={ SelectedRequest.workerLog } /></Row> }
-
+      { SelectedRequest.workerLog[0] ? SelectedRequest.workerLog.map((log) => <Row><h4>Workers Log</h4></Row> && <Row><WorkerLog message={ log } /></Row>) : null }
 
       <Row>
 

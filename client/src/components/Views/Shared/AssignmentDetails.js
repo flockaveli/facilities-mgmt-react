@@ -43,17 +43,17 @@ border-radius: 50%;
 
 
 
-const AssignmentDetails = ({ message }) => {
+const AssignmentDetails = ({assignment}) => {
     return (
         <div>
-            { message &&
-                <MessageContainer key={ message }  >
+            { assignment &&
+                <MessageContainer key={ assignment.assignmentMessage }  >
                     <Row>
-                        <Col>Assigned: { moment(message.updatedAt).format("L LT") }
+                        <Col>Assigned: { moment(assignment.updatedAt).format("L LT") }
                         </Col>
                     </Row>
                     <Row>
-                        { message.assignmentMessage }
+                        { assignment.assignmentMessage }
                     </Row>
                 </MessageContainer>
             }
