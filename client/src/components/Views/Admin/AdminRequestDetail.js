@@ -111,6 +111,8 @@ const AdminRequestDetail = () => {
           <Col><Button onClick={ closeRequest }> Decline </Button></Col> }
         { SelectedRequest.status === 'Pending Review' &&
           <Col><Button onClick={ closeRequest }> Mark as completed </Button></Col> }
+        { SelectedRequest.status === 'Unresolved' &&
+          <Col><Button onClick={ closeRequest }> Archive Request </Button></Col> }
       </Row>
     </Container >
   );
