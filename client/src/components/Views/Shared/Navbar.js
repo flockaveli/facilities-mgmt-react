@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from 'react'
 import Navbar from 'react-bootstrap/Navbar'
-import { Link, useRouteMatch } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Logout from './Logout'
 
