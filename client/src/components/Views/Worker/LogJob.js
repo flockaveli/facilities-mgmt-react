@@ -127,6 +127,7 @@ const LogJob = () => {
                                         dispatch({
                                             type: 'JOB_LOGGED'
                                         })
+                                        console.log(result.data)
                                         history.goBack()
                                     } else {
                                         console.log('Error')
@@ -152,8 +153,7 @@ const LogJob = () => {
                                     name="resolution"
                                     onChange={ handleChange }
                                     value={ values.resolution }>
-                                    <option defaultvalue key={ 0 } value={ null }></option>
-                                    <option key='Resolved' value='Actioned'>Actioned</option>
+                                    <option defaultvalue key='Resolved' value='Actioned'>Actioned</option>
                                     <option key='Unresolved' value='Unresolved'>Unable to resolve</option>
                                 </Form.Control>
                                 { touched.resolution && errors.resolution ? (
@@ -190,9 +190,6 @@ const LogJob = () => {
                         </Form >
                     ) }
             </Formik>
-
-
-
         </CONTAINER>
     );
 }

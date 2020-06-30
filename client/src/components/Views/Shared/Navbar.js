@@ -70,9 +70,6 @@ const FmNav = () => {
       <Link to={ "/Worker" } >
         Dashboard
               </Link>
-      <Link to={ "/Map" } className="nav-link">
-        Map
-              </Link>
       <div> Welcome, { user.name } </div>
       <Logout />
     </>
