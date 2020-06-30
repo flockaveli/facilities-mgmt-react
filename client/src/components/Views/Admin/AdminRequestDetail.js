@@ -98,7 +98,7 @@ const AdminRequestDetail = () => {
       </Row>
       { SelectedRequest.messages[0] ? <> <Row><h4>Messages</h4></Row> { SelectedRequest.messages.map((message) => <Row><Col> <Message message={ message } key={ message } /></Col></Row>) } </> : null }
 
-      { SelectedRequest.assignment.assignmentMessage ? <> <Row><h4>Assignment</h4></Row> <Row> <AssignmentDetails assignment={ SelectedRequest.assignment } /></Row> </> : null }
+      { SelectedRequest.assignment ? <> <Row><h4>Assignment</h4></Row> <Row> <AssignmentDetails assignment={ SelectedRequest.assignment } /></Row> </> : null }
 
       { SelectedRequest.workerLog[0] ? SelectedRequest.workerLog.map((log) => <Row><h4>Workers Log</h4></Row> && <Row><WorkerLog message={ log } /></Row>) : null }
 

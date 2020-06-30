@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
@@ -14,7 +14,6 @@ const AdminWorkerDetail = () => {
   const context = useFmState();
   const dispatch = useFmDispatch();
   const history = useHistory();
-
   let { _id } = useParams()
   const { SelectedUser, requests, isFetching } = context
 
@@ -36,7 +35,6 @@ const AdminWorkerDetail = () => {
   }
 
   const getThisWorkersRequests = _id => {
-
     dispatch({ type: 'FETCHING' })
     RequestDataService.getWorkersRequests(_id)
       .then(response => {
@@ -52,10 +50,7 @@ const AdminWorkerDetail = () => {
     getUserDetail(SelectedUser._id)
   }
 
-  const ableUser = (e) => {
-    AuthDataService.updateUser(SelectedUser._id, { enabled: e.target.checked });
-    getUserDetail(SelectedUser._id)
-  }
+
 
   const back = () => {
     history.goBack()
@@ -84,12 +79,9 @@ const AdminWorkerDetail = () => {
             <option value={ 'Admin' }>Admin</option>
             <option value={ 'Worker' }>Worker</option>
           </Form.Control></Col></Row>
-          <Row><Col>Status:</Col><Col><Form>
-            <Form.Check type="switch"
-              onChange={ ableUser }
-              checked={ SelectedUser.enabled }
-              label="Allow Requests"
-              id="disabled-custom-switch" /></Form> </Col></Row>
+          <Row><Col>
+
+          </Col></Row>
         </Col>
       </Row>
 
@@ -97,7 +89,7 @@ const AdminWorkerDetail = () => {
 
 
       <RequestList requests={ requests } isFetching={ isFetching } />
-      
+
     </Container>
   );
 }
