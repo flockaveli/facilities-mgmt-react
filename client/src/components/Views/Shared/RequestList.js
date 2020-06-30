@@ -68,7 +68,7 @@ const RequestList = ({ requests, isFetching }) => {
     const { user } = state
 
     const history = useHistory()
-    const itemsPerPage = 2
+    const itemsPerPage = 5
     const [currentPage, setCurrentPage] = useState(1);
 
     const maxPage = Math.ceil(requests.length / itemsPerPage);

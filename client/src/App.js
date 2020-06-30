@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import AdminRequestDetail from './components/Views/Admin/AdminRequestDetail'
 import AdminUserDetail from './components/Views/Admin/AdminUserDetail'
+import AdminWorkerDetail from './components/Views/Admin/AdminWorkerDetail'
 import AdminDashboard from './components/Views/Admin/AdminDashboard'
 import AdminUserDashboard from './components/Views/Admin/AdminUserDashboard'
 import AdminWorkerDashboard from './components/Views/Admin/AdminWorkerDashboard'
@@ -71,6 +72,7 @@ function App() {
             { hasType(user, ['Admin']) && <Route path='/requesters' component={ AdminUserDashboard } /> }
             { hasType(user, ['Admin']) && <Route path='/workers' component={ AdminWorkerDashboard } /> }
             { hasType(user, ['Admin']) && <Route path="/userdetail/:_id" component={ AdminUserDetail } /> }
+            { hasType(user, ['Admin']) && <Route path="/workerdetail/:_id" component={ AdminWorkerDetail } /> }
             { hasType(user, ['Admin']) && <Route path="/requests/:_id" component={ AdminRequestDetail } /> }
             { hasType(user, ['Admin']) && <Route path="/assign/:_id" component={ AssignRequest } /> }
             { hasType(user, ['Admin']) && <Route path="/respond/:_id" component={ AdminRespond } /> }

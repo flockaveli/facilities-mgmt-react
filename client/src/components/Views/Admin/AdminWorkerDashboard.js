@@ -72,10 +72,9 @@ const AdminWorkerDashboard = () => {
 	}
 
 	const userPage = (_id) => {
-		history.push(`/userdetail/${_id}`)
+		history.push(`/workerdetail/${_id}`)
 	}
 	const filterUsers = () => {
-		history.push(`/userdetail/`)
 	}
 
 	//returning JSX to render

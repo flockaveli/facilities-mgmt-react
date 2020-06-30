@@ -2,15 +2,15 @@
 import React, { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import RequestList from '../Shared/RequestList'
 
 import AuthDataService from "../../../services/AuthService";
 import RequestDataService from "../../../services/RequestService";
 
 import { useFmState, useFmDispatch } from '../../../services/fm-context'
+import RequestList from '../Shared/RequestList';
 
 
-const AdminUserDetail = () => {
+const AdminWorkerDetail = () => {
   const context = useFmState();
   const dispatch = useFmDispatch();
   const history = useHistory();
@@ -20,8 +20,8 @@ const AdminUserDetail = () => {
 
 
   useEffect(() => {
-    getUserDetail(_id)
-    getThisUsersRequests(_id)
+    getUserDetail(_id);
+    getThisWorkersRequests(_id)
   }, [])
 
   const getUserDetail = _id => {
@@ -35,10 +35,10 @@ const AdminUserDetail = () => {
       })
   }
 
-  const getThisUsersRequests = _id => {
+  const getThisWorkersRequests = _id => {
 
     dispatch({ type: 'FETCHING' })
-    RequestDataService.getMyRequests(_id)
+    RequestDataService.getWorkersRequests(_id)
       .then(response => {
         dispatch({ type: 'GET_REQUESTS_SUCCESS', payload: response.data });
       })
@@ -94,10 +94,12 @@ const AdminUserDetail = () => {
       </Row>
 
 
-      <RequestList requests={ requests } isFetching={ isFetching } />
 
+
+      <RequestList requests={ requests } isFetching={ isFetching } />
+      
     </Container>
   );
 }
 
-export default AdminUserDetail;
+export default AdminWorkerDetail;
