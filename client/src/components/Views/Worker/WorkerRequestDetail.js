@@ -62,7 +62,7 @@ const WorkerRequestDetail = () => {
           <Row><Col>Category:</Col><Col> { SelectedRequest.category }</Col></Row>
           <Row><Col>Status:</Col><Col> { SelectedRequest.status }</Col></Row>
           <Row><Col>Requested by:</Col><Col>{ SelectedRequest.requester.name }</Col></Row>
-          <Row><Col>Priority:</Col><Col>{SelectedRequest.priority }</Col>
+          <Row><Col>Priority:</Col><Col>{ SelectedRequest.priority }</Col>
           </Row>
         </Col>
       </Row>
@@ -80,12 +80,12 @@ const WorkerRequestDetail = () => {
 
       { SelectedRequest.messages && SelectedRequest.messages.map((message) => <Row><Col> <Message message={ message } key={ message } /></Col></Row>) }
 
-      <Row>
-        { SelectedRequest.assignment.assignmentMessage && <h4>Assignment Details</h4> && SelectedRequest.assignment.assignmentMessage && <Row><AssignmentDetails message={ SelectedRequest.assignment } /></Row> }
-      </Row>
-      <Row>
-        { SelectedRequest.workerLog.message && <h4>Workers Log</h4> && <Row><WorkerLog message={ SelectedRequest.workerLog } /></Row> }
-      </Row>
+
+      { SelectedRequest.assignment.assignmentMessage && <Row><h4>Assignment Details</h4></Row> && SelectedRequest.assignment.assignmentMessage && <Row><AssignmentDetails message={ SelectedRequest.assignment } /></Row> }
+
+
+      { SelectedRequest.workerLog.message && <Row><h4>Workers Log</h4></Row> && <Row><WorkerLog message={ SelectedRequest.workerLog } /></Row> }
+
 
       <Row>
 

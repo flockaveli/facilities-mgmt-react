@@ -19,9 +19,7 @@ const Landing = () => {
 
     return (
         <>
-            { hasType(user, ['Worker']) && (<Redirect to="/worker" />) }
-            { hasType(user, ['Requester']) && (<Redirect to="/requester" />) }
-            { hasType(user, ['Admin']) && (<Redirect to="/admin" />) }
+            
             <LandingBody>
                 <div>Welcome to the Unitec Facilities Management Service Request App</div>
 

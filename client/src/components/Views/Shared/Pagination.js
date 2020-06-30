@@ -12,7 +12,7 @@ const fmPagination = ({ itemsPerPage, totalRequests, currentPage, paginate, next
             <Pagination.Prev onClick={ () => prev() } />
             { pageNumbers.map(number => (<Pagination.Item onClick={ () => paginate(number) }>{ number }</Pagination.Item>)) }
             <Pagination.Next onClick={ () => next() } />
-            <Pagination.Last onClick={ () => paginate(totalRequests) } />
+            <Pagination.Last onClick={ () => paginate(Math.min(Math.ceil(totalRequests / itemsPerPage))) } />
         </Pagination>
     )
 }

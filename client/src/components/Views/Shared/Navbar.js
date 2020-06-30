@@ -30,10 +30,11 @@ padding: 0em 2em 0em 1em;
 const FmNav = () => {
   const context = useFmState();
   const dispatch = useFmDispatch();
+  const history = useHistory();
   const { user } = context;
 
   return (<Nav>
-    <UfmLogo src={ Logo } />
+    <UfmLogo src={ Logo } onClick={ () => history.push('/') } />
 
 
 
